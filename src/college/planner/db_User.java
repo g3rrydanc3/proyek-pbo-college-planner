@@ -1,5 +1,6 @@
 package college.planner;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class db_User implements Serializable{
     private String username;
@@ -9,6 +10,7 @@ public class db_User implements Serializable{
     private String birth;
     private String gender;
     private String email;
+    private ArrayList<db_Semester> semester = new ArrayList<>();
 
     public db_User(String username, String password, String firstName, String lastName, String birth, String gender, String email) {
         this.username = username;
@@ -72,4 +74,12 @@ public class db_User implements Serializable{
     public String toString() {
         return "db_User{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", birth=" + birth + ", gender=" + gender + ", email=" + email + '}';
     }
+
+    public ArrayList<db_Semester> getSemester() {
+        return semester;
+    }
+
+    //public void addSemester(String name) {
+    //    semester.add(new db_Semester(name));
+    //}
 }
