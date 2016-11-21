@@ -171,6 +171,21 @@ public class MainFrame extends javax.swing.JFrame {
         Home_Semester_List = new javax.swing.JList<>();
         Home_Semester1 = new javax.swing.JButton();
         Overview = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        Tab_Overview = new javax.swing.JPanel();
+        Tab_Overview_Label_Goal = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        Tab_Overview_Edit_Goal = new javax.swing.JButton();
+        Tab_Overview_Label_Grade = new javax.swing.JLabel();
+        Tab_Overview_Label_GPA = new javax.swing.JLabel();
+        Tab_Class = new javax.swing.JPanel();
+        Tab_Class_ScrollPane = new javax.swing.JScrollPane();
+        Tab_Class_List = new javax.swing.JList<>();
+        Tab_Class_Add_Class = new javax.swing.JButton();
+        Tab_Homework = new javax.swing.JPanel();
+        Tab_Exam = new javax.swing.JPanel();
+        Tab_Grade = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("College Planner");
@@ -616,8 +631,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Agenda.setBackground(new java.awt.Color(255, 255, 255));
 
-        Agenda_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
         Agenda_Label.setText("Agenda");
+        Agenda_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
 
         javax.swing.GroupLayout AgendaLayout = new javax.swing.GroupLayout(Agenda);
         Agenda.setLayout(AgendaLayout);
@@ -640,8 +655,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Setting.setBackground(new java.awt.Color(255, 255, 255));
 
-        Setting_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
         Setting_Label.setText("Setting");
+        Setting_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
 
         javax.swing.GroupLayout SettingLayout = new javax.swing.GroupLayout(Setting);
         Setting.setLayout(SettingLayout);
@@ -717,15 +732,183 @@ public class MainFrame extends javax.swing.JFrame {
 
         Home_Container.add(Semester, "card2");
 
+        Overview.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTabbedPane1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jTabbedPane1.setName(""); // NOI18N
+
+        Tab_Overview.setBackground(new java.awt.Color(255, 255, 255));
+        Tab_Overview.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Tab_Overview_Label_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_Goal.setText("Goal This Semester");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        Tab_Overview_Edit_Goal.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Overview_Edit_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Edit_Goal.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Overview_Edit_Goal.setText("Edit Goal");
+        Tab_Overview_Edit_Goal.setBorder(null);
+        Tab_Overview_Edit_Goal.setBorderPainted(false);
+        Tab_Overview_Edit_Goal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Tab_Overview_Edit_Goal.setFocusPainted(false);
+        Tab_Overview_Edit_Goal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Tab_Overview_Edit_GoalActionPerformed(evt);
+            }
+        });
+
+        Tab_Overview_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_Grade.setText("Grade This Semester");
+
+        Tab_Overview_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_GPA.setText("4.0");
+
+        javax.swing.GroupLayout Tab_OverviewLayout = new javax.swing.GroupLayout(Tab_Overview);
+        Tab_Overview.setLayout(Tab_OverviewLayout);
+        Tab_OverviewLayout.setHorizontalGroup(
+            Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Tab_OverviewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(Tab_Overview_Edit_Goal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addGroup(Tab_OverviewLayout.createSequentialGroup()
+                        .addGroup(Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Tab_Overview_Label_Goal)
+                            .addGroup(Tab_OverviewLayout.createSequentialGroup()
+                                .addComponent(Tab_Overview_Label_Grade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Tab_Overview_Label_GPA)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        Tab_OverviewLayout.setVerticalGroup(
+            Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Tab_OverviewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Tab_Overview_Label_Goal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Tab_Overview_Edit_Goal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Tab_Overview_Label_Grade)
+                    .addComponent(Tab_Overview_Label_GPA))
+                .addContainerGap(279, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Overview", Tab_Overview);
+
+        Tab_Class.setBackground(new java.awt.Color(255, 255, 255));
+        Tab_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Tab_Class_List.setSelectionBackground(new java.awt.Color(1, 148, 72));
+        Tab_Class_List.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tab_Class_ListMouseClicked(evt);
+            }
+        });
+        Tab_Class_ScrollPane.setViewportView(Tab_Class_List);
+
+        Tab_Class_Add_Class.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Class_Add_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Class_Add_Class.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Class_Add_Class.setText("Add Class");
+        Tab_Class_Add_Class.setBorder(null);
+        Tab_Class_Add_Class.setBorderPainted(false);
+        Tab_Class_Add_Class.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Tab_Class_Add_Class.setFocusPainted(false);
+        Tab_Class_Add_Class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Tab_Class_Add_ClassActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Tab_ClassLayout = new javax.swing.GroupLayout(Tab_Class);
+        Tab_Class.setLayout(Tab_ClassLayout);
+        Tab_ClassLayout.setHorizontalGroup(
+            Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Tab_ClassLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Tab_Class_ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        Tab_ClassLayout.setVerticalGroup(
+            Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Tab_ClassLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Tab_Class_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(289, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Class", Tab_Class);
+
+        Tab_Homework.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout Tab_HomeworkLayout = new javax.swing.GroupLayout(Tab_Homework);
+        Tab_Homework.setLayout(Tab_HomeworkLayout);
+        Tab_HomeworkLayout.setHorizontalGroup(
+            Tab_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        Tab_HomeworkLayout.setVerticalGroup(
+            Tab_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Homework", Tab_Homework);
+
+        Tab_Exam.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout Tab_ExamLayout = new javax.swing.GroupLayout(Tab_Exam);
+        Tab_Exam.setLayout(Tab_ExamLayout);
+        Tab_ExamLayout.setHorizontalGroup(
+            Tab_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        Tab_ExamLayout.setVerticalGroup(
+            Tab_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Exam", Tab_Exam);
+
+        Tab_Grade.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout Tab_GradeLayout = new javax.swing.GroupLayout(Tab_Grade);
+        Tab_Grade.setLayout(Tab_GradeLayout);
+        Tab_GradeLayout.setHorizontalGroup(
+            Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        Tab_GradeLayout.setVerticalGroup(
+            Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Grade", Tab_Grade);
+
         javax.swing.GroupLayout OverviewLayout = new javax.swing.GroupLayout(Overview);
         Overview.setLayout(OverviewLayout);
         OverviewLayout.setHorizontalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         OverviewLayout.setVerticalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         Home_Container.add(Overview, "card5");
@@ -916,6 +1099,18 @@ public class MainFrame extends javax.swing.JFrame {
         Home_Setting.setBackground(new Color(1, 148, 72));
     }//GEN-LAST:event_Home_SemesterActionPerformed
 
+    private void Tab_Overview_Edit_GoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Overview_Edit_GoalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tab_Overview_Edit_GoalActionPerformed
+
+    private void Tab_Class_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_Class_ListMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tab_Class_ListMouseClicked
+
+    private void Tab_Class_Add_ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_ClassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1008,5 +1203,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Semester_Label;
     private javax.swing.JPanel Setting;
     private javax.swing.JLabel Setting_Label;
+    private javax.swing.JPanel Tab_Class;
+    private javax.swing.JButton Tab_Class_Add_Class;
+    private javax.swing.JList<String> Tab_Class_List;
+    private javax.swing.JScrollPane Tab_Class_ScrollPane;
+    private javax.swing.JPanel Tab_Exam;
+    private javax.swing.JPanel Tab_Grade;
+    private javax.swing.JPanel Tab_Homework;
+    private javax.swing.JPanel Tab_Overview;
+    private javax.swing.JButton Tab_Overview_Edit_Goal;
+    private javax.swing.JLabel Tab_Overview_Label_GPA;
+    private javax.swing.JLabel Tab_Overview_Label_Goal;
+    private javax.swing.JLabel Tab_Overview_Label_Grade;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
