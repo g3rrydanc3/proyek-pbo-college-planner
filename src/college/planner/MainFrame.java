@@ -16,10 +16,13 @@ import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 public class MainFrame extends javax.swing.JFrame {
+    DefaultListModel<String> smstr = new DefaultListModel<>();
     public MainFrame() throws IOException {
         initComponents();
+        jList1.setModel(smstr);
         this.setLocationRelativeTo(null);
         load();
         changePanel("Login");
@@ -741,8 +744,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Login_RegisterActionPerformed
 
     private void Home_Semester1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Home_Semester1ActionPerformed
-       String year = JOptionPane.showInputDialog(rootPane, "What year?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
-       //db.get(id).addSemester(year);
+        //String year = JOptionPane.showInputDialog(rootPane, "What year?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
+        String semester = JOptionPane.showInputDialog(rootPane, "What semester?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
+        //db.get(id).addSemester(year);
+        smstr.addElement(semester);
+            
     }//GEN-LAST:event_Home_Semester1ActionPerformed
 
     /**
