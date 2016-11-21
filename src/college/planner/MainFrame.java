@@ -746,8 +746,44 @@ public class MainFrame extends javax.swing.JFrame {
     private void Home_Semester1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Home_Semester1ActionPerformed
         //String year = JOptionPane.showInputDialog(rootPane, "What year?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
         String semester = JOptionPane.showInputDialog(rootPane, "What semester?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
-        //db.get(id).addSemester(year);
-        smstr.addElement(semester);
+        int kembar = 0;
+        for (int i = 0; i < jList1.getModel().getSize(); i++){
+            Object isi = jList1.getModel().getElementAt(i);
+            String sudah = (String) isi;
+            if (semester.equals(sudah)){
+                kembar = 1;
+            }
+        }
+        if (kembar == 0){
+            smstr.addElement(semester);
+            String[] tampung = new String[jList1.getModel().getSize()];
+            int ctr = 0;
+            for (int i = 0; i < jList1.getModel().getSize(); i++){
+                Object isi = jList1.getModel().getElementAt(i);
+                String sudah = (String) isi;
+                tampung[ctr] = sudah;
+                ctr++;
+            }
+            smstr.removeAllElements();
+            for (int i = 0; i < tampung.length-1; i++)
+            {
+                for (int j = i+i; j < tampung.length; j++)
+                {
+                    if (tampung[i].compareTo(tampung[j])>0) // >0  <0  =
+                    {
+                        String temp = tampung[i];
+                        tampung[i] = tampung[j];
+                        tampung[j]=temp;
+                    }
+                }
+            }
+            for (int i = 0; i < tampung.length; i++){
+                smstr.addElement(tampung[i]);
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Semester sudah ada", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
             
     }//GEN-LAST:event_Home_Semester1ActionPerformed
 
