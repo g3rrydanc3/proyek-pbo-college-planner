@@ -1,8 +1,9 @@
 package college.planner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class db_Semester {
+public class db_Semester implements Serializable{
     private String name;
     private ArrayList<db_Class> cls = new ArrayList<>();
 
@@ -21,7 +22,11 @@ public class db_Semester {
     public ArrayList<db_Class> getCls() {
         return cls;
     }
-
+    
+    @Override
+    public String toString() {
+        return name;
+    }
     //public void addCls(ArrayList<db_Class> cls) {
     //    cls.add(new db_Class())
     //}

@@ -10,7 +10,7 @@ public class db_User implements Serializable{
     private String birth;
     private String gender;
     private String email;
-    private ArrayList<db_Semester> semester = new ArrayList<>();
+    public ArrayList<db_Semester> semester = new ArrayList<>();
 
     public db_User(String username, String password, String firstName, String lastName, String birth, String gender, String email) {
         this.username = username;
@@ -72,13 +72,16 @@ public class db_User implements Serializable{
 
     @Override
     public String toString() {
-        return "db_User{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", birth=" + birth + ", gender=" + gender + ", email=" + email + '}';
+        return "db_User{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", birth=" + birth + ", gender=" + gender + ", email=" + email + ", semester=" +semester +'}';
     }
 
     public ArrayList<db_Semester> getSemester() {
         return semester;
     }
-
+    
+    public void addSemester(String smstr){
+        semester.add(new db_Semester(smstr));
+    }
     //public void addSemester(String name) {
     //    semester.add(new db_Semester(name));
     //}

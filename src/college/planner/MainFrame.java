@@ -17,9 +17,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.util.Collections;
+import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
     DefaultListModel<String> smtr = new DefaultListModel<>();
+    //int x = 0;
+    Object data[][]=null;
+    //ArrayList<String>addclass = new ArrayList<String>();
+    String header[] = {"Subject", "Room", "Day", "Time"};
+    String addclass[] = new String[100];
+    int index[] = new int[100];
+    
     public MainFrame() throws IOException {
         initComponents();
         Home_Semester_List.setModel(smtr);
@@ -37,8 +45,11 @@ public class MainFrame extends javax.swing.JFrame {
         Register_Back.setIcon(imgBack);
         Login_Icon.setIcon(imgLogo);
         Home_Logo.setIcon(imgLogo);
+        
+        jTable1.setModel(new DefaultTableModel(data, header));
     }
     ArrayList<db_User> db = new ArrayList<>();
+    ArrayList<db_Semester> dbSemester = new ArrayList<>();
     int id = -1;
     int semester = -1;
     /**
@@ -180,9 +191,9 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Overview_Label_Grade = new javax.swing.JLabel();
         Tab_Overview_Label_GPA = new javax.swing.JLabel();
         Tab_Class = new javax.swing.JPanel();
-        Tab_Class_ScrollPane = new javax.swing.JScrollPane();
-        Tab_Class_List = new javax.swing.JList<>();
         Tab_Class_Add_Class = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         Tab_Homework = new javax.swing.JPanel();
         Tab_Exam = new javax.swing.JPanel();
         Tab_Grade = new javax.swing.JPanel();
@@ -742,33 +753,33 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Overview.setBackground(new java.awt.Color(255, 255, 255));
         Tab_Overview.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Overview_Label_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Tab_Overview_Label_Goal.setText("Goal This Semester");
+        Tab_Overview_Label_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         jTextArea1.setRows(5);
+        jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(jTextArea1);
 
-        Tab_Overview_Edit_Goal.setBackground(new java.awt.Color(1, 148, 72));
-        Tab_Overview_Edit_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Tab_Overview_Edit_Goal.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Overview_Edit_Goal.setText("Edit Goal");
+        Tab_Overview_Edit_Goal.setBackground(new java.awt.Color(1, 148, 72));
         Tab_Overview_Edit_Goal.setBorder(null);
         Tab_Overview_Edit_Goal.setBorderPainted(false);
         Tab_Overview_Edit_Goal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Tab_Overview_Edit_Goal.setFocusPainted(false);
+        Tab_Overview_Edit_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Edit_Goal.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Overview_Edit_Goal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Tab_Overview_Edit_GoalActionPerformed(evt);
             }
         });
 
-        Tab_Overview_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Tab_Overview_Label_Grade.setText("Grade This Semester");
+        Tab_Overview_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Overview_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Tab_Overview_Label_GPA.setText("4.0");
+        Tab_Overview_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout Tab_OverviewLayout = new javax.swing.GroupLayout(Tab_Overview);
         Tab_Overview.setLayout(Tab_OverviewLayout);
@@ -810,45 +821,50 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Class.setBackground(new java.awt.Color(255, 255, 255));
         Tab_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Class_List.setSelectionBackground(new java.awt.Color(1, 148, 72));
-        Tab_Class_List.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tab_Class_ListMouseClicked(evt);
-            }
-        });
-        Tab_Class_ScrollPane.setViewportView(Tab_Class_List);
-
-        Tab_Class_Add_Class.setBackground(new java.awt.Color(1, 148, 72));
-        Tab_Class_Add_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Tab_Class_Add_Class.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Class_Add_Class.setText("Add Class");
+        Tab_Class_Add_Class.setBackground(new java.awt.Color(1, 148, 72));
         Tab_Class_Add_Class.setBorder(null);
         Tab_Class_Add_Class.setBorderPainted(false);
         Tab_Class_Add_Class.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Tab_Class_Add_Class.setFocusPainted(false);
+        Tab_Class_Add_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Class_Add_Class.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Class_Add_Class.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Tab_Class_Add_ClassActionPerformed(evt);
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         javax.swing.GroupLayout Tab_ClassLayout = new javax.swing.GroupLayout(Tab_Class);
         Tab_Class.setLayout(Tab_ClassLayout);
         Tab_ClassLayout.setHorizontalGroup(
             Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Tab_ClassLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tab_ClassLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Tab_Class_ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                    .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Tab_ClassLayout.setVerticalGroup(
             Tab_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Tab_ClassLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Tab_Class_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(289, Short.MAX_VALUE))
         );
@@ -953,6 +969,11 @@ public class MainFrame extends javax.swing.JFrame {
             if (idTemp != -1) {
                 if (Login_Password.getText().equals(db.get(idTemp).getPassword())) {
                     id = idTemp;
+                    for (int i = 0; i < db.get(id).getSemester().size(); i++){
+                        smtr.addElement(db.get(id).semester.get(i).getName());
+                        
+                    }
+                    //addclass.clear();
                     changePanel("Semester");
                 }
                 else{
@@ -1063,11 +1084,11 @@ public class MainFrame extends javax.swing.JFrame {
             for (int i = 0; i < tampungStr.size(); i++){
                 smtr.addElement(tampungStr.get(i));
             }
+            db.get(id).addSemester((semester));
+            save();
         }else{
             JOptionPane.showMessageDialog(rootPane, "Semester sudah ada", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-            
     }//GEN-LAST:event_Home_Semester1ActionPerformed
 
     private void Home_Semester_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Home_Semester_ListMouseClicked
@@ -1075,6 +1096,7 @@ public class MainFrame extends javax.swing.JFrame {
             int index = Home_Semester_List.locationToIndex(evt.getPoint());
             changePanel("Overview");
             Home_Semester.setBackground(new Color(1, 148, 72));
+            int ctr = 0;
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
 
@@ -1103,12 +1125,26 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Tab_Overview_Edit_GoalActionPerformed
 
-    private void Tab_Class_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_Class_ListMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Tab_Class_ListMouseClicked
-
     private void Tab_Class_Add_ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_ClassActionPerformed
-        // TODO add your handling code here:
+        int x = 0;
+        String subject = JOptionPane.showInputDialog(rootPane, "What subject?", "Add Class", JOptionPane.QUESTION_MESSAGE);
+        String room = JOptionPane.showInputDialog(rootPane, "What room?", "Add Class", JOptionPane.QUESTION_MESSAGE);
+        String day = JOptionPane.showInputDialog(rootPane, "What day?", "Add Class", JOptionPane.QUESTION_MESSAGE);
+        String time = JOptionPane.showInputDialog(rootPane, "What time?", "Add Class", JOptionPane.QUESTION_MESSAGE);
+        //addclass.add(subject+"-"+room+"-"+day+"-"+time);
+        //addclass[Integer.parseInt(Home_Semester_List.getSelectedValue())][ctr] = subject+"-"+room+"-"+day+"-"+time;
+        //ata= new Object[ctr][4];
+        //or (int i = 0; i < ctr; i++){
+            //String potong[] = addclass[Home_Semester_List.getSelectedIndex()][i].split("-");
+            //data[x][0] = potong[0];
+            //data[x][1] = potong[1];
+           // data[x][2] = potong[2];
+           // data[x][3] = potong[3];
+           // x++;
+            
+        //}
+        ////ctr++;
+        //jTable1.setModel(new DefaultTableModel(data, header));
     }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
 
     /**
@@ -1205,8 +1241,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Setting_Label;
     private javax.swing.JPanel Tab_Class;
     private javax.swing.JButton Tab_Class_Add_Class;
-    private javax.swing.JList<String> Tab_Class_List;
-    private javax.swing.JScrollPane Tab_Class_ScrollPane;
     private javax.swing.JPanel Tab_Exam;
     private javax.swing.JPanel Tab_Grade;
     private javax.swing.JPanel Tab_Homework;
@@ -1216,7 +1250,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Tab_Overview_Label_Goal;
     private javax.swing.JLabel Tab_Overview_Label_Grade;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
