@@ -72,7 +72,7 @@ public class db_User implements Serializable{
 
     @Override
     public String toString() {
-        return "db_User{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", birth=" + birth + ", gender=" + gender + ", email=" + email + ", semester=" +semester +'}';
+        return "db_User{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", birth=" + birth + ", gender=" + gender + ", email=" + email + ", semester=" +semester+'}';
     }
 
     public ArrayList<db_Semester> getSemester() {
