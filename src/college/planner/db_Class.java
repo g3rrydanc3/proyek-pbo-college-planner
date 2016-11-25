@@ -10,9 +10,9 @@ public class db_Class {
     private ArrayList<db_HomeworkExam> homework = new ArrayList<>();
     private ArrayList<db_HomeworkExam> exam = new ArrayList<>();
 
-    public db_Class(String name, String description) {
+    public db_Class(String name) {
         this.name = name;
-        this.description = description;
+        //this.description = description;
         gpa = 0;
     }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class db_Semester implements Serializable{
     private String name;
-    private ArrayList<db_Class> cls = new ArrayList<>();
+    public ArrayList<db_Class> cls = new ArrayList<>();
 
     public db_Semester(String name) {
         this.name = name;
@@ -21,6 +21,10 @@ public class db_Semester implements Serializable{
 
     public ArrayList<db_Class> getCls() {
         return cls;
+    }
+    
+    public void addClass(String clss){
+        cls.add(new db_Class(clss));
     }
     
     @Override

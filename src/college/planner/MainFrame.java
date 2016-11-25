@@ -25,8 +25,9 @@ public class MainFrame extends javax.swing.JFrame {
     Object data[][]=null;
     //ArrayList<String>addclass = new ArrayList<String>();
     String header[] = {"Subject", "Room", "Day", "Time"};
-    String addclass[] = new String[100];
+    ArrayList<String> addclass = new ArrayList<>();
     int index[] = new int[100];
+    int indexSemester;
     
     public MainFrame() throws IOException {
         initComponents();
@@ -47,6 +48,7 @@ public class MainFrame extends javax.swing.JFrame {
         Home_Logo.setIcon(imgLogo);
         
         jTable1.setModel(new DefaultTableModel(data, header));
+        indexSemester=-1;
     }
     ArrayList<db_User> db = new ArrayList<>();
     ArrayList<db_Semester> dbSemester = new ArrayList<>();
@@ -967,11 +969,16 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
             if (idTemp != -1) {
+                ArrayList<String>tampung = new ArrayList<>();
                 if (Login_Password.getText().equals(db.get(idTemp).getPassword())) {
                     id = idTemp;
                     for (int i = 0; i < db.get(id).getSemester().size(); i++){
-                        smtr.addElement(db.get(id).semester.get(i).getName());
-                        
+                        tampung.add(db.get(id).semester.get(i).getName());
+                        //smtr.addElement(db.get(id).semester.get(i).getName());
+                    }
+                    Collections.sort(tampung);
+                    for (int i = 0; i < tampung.size(); i++){
+                        smtr.addElement(tampung.get(i).toString());
                     }
                     //addclass.clear();
                     changePanel("Semester");
@@ -1092,11 +1099,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Home_Semester1ActionPerformed
 
     private void Home_Semester_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Home_Semester_ListMouseClicked
-        if (evt.getClickCount() == 2) {
+         if (evt.getClickCount() == 2) {
             int index = Home_Semester_List.locationToIndex(evt.getPoint());
             changePanel("Overview");
             Home_Semester.setBackground(new Color(1, 148, 72));
-            int ctr = 0;
+            for (int i = 0; i < Home_Semester_List.getModel().getSize(); i++) {
+                if(Home_Semester_List.getSelectedValue().equals(db.get(id).semester.get(i).getName())){
+                    indexSemester = i;
+                    break;
+                }
+            }
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
 
@@ -1127,24 +1139,27 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void Tab_Class_Add_ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_ClassActionPerformed
         int x = 0;
+        ArrayList<String> bantu = new ArrayList<>();
         String subject = JOptionPane.showInputDialog(rootPane, "What subject?", "Add Class", JOptionPane.QUESTION_MESSAGE);
         String room = JOptionPane.showInputDialog(rootPane, "What room?", "Add Class", JOptionPane.QUESTION_MESSAGE);
         String day = JOptionPane.showInputDialog(rootPane, "What day?", "Add Class", JOptionPane.QUESTION_MESSAGE);
         String time = JOptionPane.showInputDialog(rootPane, "What time?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        //addclass.add(subject+"-"+room+"-"+day+"-"+time);
-        //addclass[Integer.parseInt(Home_Semester_List.getSelectedValue())][ctr] = subject+"-"+room+"-"+day+"-"+time;
-        //ata= new Object[ctr][4];
-        //or (int i = 0; i < ctr; i++){
-            //String potong[] = addclass[Home_Semester_List.getSelectedIndex()][i].split("-");
-            //data[x][0] = potong[0];
-            //data[x][1] = potong[1];
-           // data[x][2] = potong[2];
-           // data[x][3] = potong[3];
-           // x++;
-            
-        //}
-        ////ctr++;
-        //jTable1.setModel(new DefaultTableModel(data, header));
+        db.get(id).semester.get(indexSemester).addClass(subject+"-"+room+"-"+day+"-"+time);
+        
+        data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+        String header[] = {"Subject", "Room", "Day", "Time"};
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+            bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+        }
+        for (int i = 0; i < bantu.size(); i++){
+            String potong[] = (bantu.get(i).toString()).split("-");
+            data[x][0] = potong[0];
+            data[x][1] = potong[1];
+            data[x][2] = potong[2];
+            data[x][3] = potong[3];
+            x++;
+        }
+        jTable1.setModel(new DefaultTableModel(data, header));
     }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
 
     /**
