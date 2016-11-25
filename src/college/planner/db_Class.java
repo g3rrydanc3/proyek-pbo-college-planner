@@ -1,10 +1,10 @@
 package college.planner;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.ArrayList;
-public class db_Class {
+public class db_Class implements Serializable{
     private String name;
-    private String description;
     private int gpa;
     private ArrayList<Date> time = new ArrayList<>();
     private ArrayList<db_HomeworkExam> homework = new ArrayList<>();
@@ -12,7 +12,6 @@ public class db_Class {
 
     public db_Class(String name) {
         this.name = name;
-        //this.description = description;
         gpa = 0;
     }
 
@@ -22,14 +21,6 @@ public class db_Class {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getGpa() {
@@ -51,7 +42,10 @@ public class db_Class {
     //public ArrayList<db_HomeworkExam> getHomework() {
     //    return homework;
     //}
-
+    public void addHomework(String s, String d, String da){
+        //homework.add(new db_HomeworkExam(s,d,da));
+    }
+    
     public void setHomework(ArrayList<db_HomeworkExam> homework) {
         this.homework = homework;
     }

@@ -6,5 +6,12 @@ public class db_HomeworkExam {
     String name;
     String description;
     Date date;
-    float percent;
+    //float percent;
+    public db_HomeworkExam(String name, String description, Date date) {
+        this.name = name;
+        this.description = description;
+        this.date = date;
+    }
+    
+    
 }

@@ -5,6 +5,7 @@
  */
 package college.planner;
 
+import com.toedter.calendar.JCalendar;
 import java.awt.Image;
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +17,10 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Font;
+import java.text.DateFormat;
 import java.util.Collections;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -197,6 +201,9 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Tab_Homework = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        Tab_Class_Add_Class1 = new javax.swing.JButton();
         Tab_Exam = new javax.swing.JPanel();
         Tab_Grade = new javax.swing.JPanel();
 
@@ -875,15 +882,52 @@ public class MainFrame extends javax.swing.JFrame {
 
         Tab_Homework.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        Tab_Class_Add_Class1.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Class_Add_Class1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Class_Add_Class1.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Class_Add_Class1.setText("Add Homework");
+        Tab_Class_Add_Class1.setBorder(null);
+        Tab_Class_Add_Class1.setBorderPainted(false);
+        Tab_Class_Add_Class1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Tab_Class_Add_Class1.setFocusPainted(false);
+        Tab_Class_Add_Class1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Tab_Class_Add_Class1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Tab_HomeworkLayout = new javax.swing.GroupLayout(Tab_Homework);
         Tab_Homework.setLayout(Tab_HomeworkLayout);
         Tab_HomeworkLayout.setHorizontalGroup(
             Tab_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tab_HomeworkLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Tab_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3)
+                    .addComponent(Tab_Class_Add_Class1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
+                .addContainerGap())
         );
         Tab_HomeworkLayout.setVerticalGroup(
             Tab_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGroup(Tab_HomeworkLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Tab_Class_Add_Class1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(289, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Homework", Tab_Homework);
@@ -980,6 +1024,7 @@ public class MainFrame extends javax.swing.JFrame {
                     for (int i = 0; i < tampung.size(); i++){
                         smtr.addElement(tampung.get(i).toString());
                     }
+                    
                     //addclass.clear();
                     changePanel("Semester");
                 }
@@ -1109,6 +1154,35 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
+            //if (db.get(id).semester.get(indexSemester).cls.get(0).getDescription()!=null){
+                //ArrayList <String> pindahOverview = new ArrayList<>();
+                //pindahOverview.add(db.get(id).semester.get(indexSemester).getDescription().toString());
+                
+            //}else{
+                //jTextArea1.setText("");
+            //}
+            
+            String header[] = {"Subject", "Room", "Day", "Time"};
+            int x = 0;
+            data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+            ArrayList<String> loadClass = new ArrayList<>();
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).cls.size(); i++){
+                loadClass.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+            }
+            for (int i = 0; i < loadClass.size(); i++){
+                String potong[] = (loadClass.get(i).toString()).split("-");
+                data[x][0] = potong[0];
+                data[x][1] = potong[1];
+                data[x][2] = potong[2];
+                data[x][3] = potong[3];
+                x++;
+            }
+            jTable1.setModel(new DefaultTableModel(data, header));
+            if(db.get(id).semester.get(indexSemester).getDescription()!=null){
+                jTextArea1.setText(db.get(id).semester.get(indexSemester).getDescription().toString());
+            }else{
+                jTextArea1.setText("");
+            }
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
 
@@ -1134,7 +1208,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Home_SemesterActionPerformed
 
     private void Tab_Overview_Edit_GoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Overview_Edit_GoalActionPerformed
-        // TODO add your handling code here:
+        db.get(id).semester.get(indexSemester).setDescription(jTextArea1.getText());
+        save();
     }//GEN-LAST:event_Tab_Overview_Edit_GoalActionPerformed
 
     private void Tab_Class_Add_ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_ClassActionPerformed
@@ -1144,24 +1219,47 @@ public class MainFrame extends javax.swing.JFrame {
         String room = JOptionPane.showInputDialog(rootPane, "What room?", "Add Class", JOptionPane.QUESTION_MESSAGE);
         String day = JOptionPane.showInputDialog(rootPane, "What day?", "Add Class", JOptionPane.QUESTION_MESSAGE);
         String time = JOptionPane.showInputDialog(rootPane, "What time?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        db.get(id).semester.get(indexSemester).addClass(subject+"-"+room+"-"+day+"-"+time);
-        
-        data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
-        String header[] = {"Subject", "Room", "Day", "Time"};
         for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
             bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
         }
-        for (int i = 0; i < bantu.size(); i++){
-            String potong[] = (bantu.get(i).toString()).split("-");
-            data[x][0] = potong[0];
-            data[x][1] = potong[1];
-            data[x][2] = potong[2];
-            data[x][3] = potong[3];
-            x++;
+        int kembar = 0;
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+            String split[] = bantu.get(i).toString().split("-");
+            if (subject.equalsIgnoreCase(split[0])){
+                kembar = 1;
+                break;
+            }
         }
-        jTable1.setModel(new DefaultTableModel(data, header));
+        if (kembar == 0){
+            bantu.clear();
+            db.get(id).semester.get(indexSemester).addClass(subject+"-"+room+"-"+day+"-"+time);
+            save();
+            data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+
+            String header[] = {"Subject", "Room", "Day", "Time"};
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+                bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+            }
+            for (int i = 0; i < bantu.size(); i++){
+                String potong[] = (bantu.get(i).toString()).split("-");
+                data[x][0] = potong[0];
+                data[x][1] = potong[1];
+                data[x][2] = potong[2];
+                data[x][3] = potong[3];
+                x++;
+            }
+            jTable1.setModel(new DefaultTableModel(data, header));
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Subject already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            bantu.clear();
+        }
     }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
 
+    private void Tab_Class_Add_Class1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_Class1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Tab_Class_Add_Class1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -1199,6 +1297,8 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1256,6 +1356,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Setting_Label;
     private javax.swing.JPanel Tab_Class;
     private javax.swing.JButton Tab_Class_Add_Class;
+    private javax.swing.JButton Tab_Class_Add_Class1;
     private javax.swing.JPanel Tab_Exam;
     private javax.swing.JPanel Tab_Grade;
     private javax.swing.JPanel Tab_Homework;
@@ -1266,8 +1367,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Tab_Overview_Label_Grade;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
