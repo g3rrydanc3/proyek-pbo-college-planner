@@ -137,6 +137,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         Register_ButtonGroup = new javax.swing.ButtonGroup();
+        Add_Class = new javax.swing.JPanel();
+        Add_Class_Label_Subject = new javax.swing.JLabel();
+        Add_Class_Subject = new javax.swing.JTextField();
+        Add_Class_Label_Room = new javax.swing.JLabel();
+        Add_Class_Room = new javax.swing.JTextField();
+        Add_Class_Label_Day = new javax.swing.JLabel();
+        Add_Class_Day = new javax.swing.JTextField();
+        Add_Class_Label_Time = new javax.swing.JLabel();
+        Add_Class_Time = new javax.swing.JTextField();
         Register = new javax.swing.JPanel();
         Register_Container = new javax.swing.JPanel();
         Register_LabelUsername = new javax.swing.JLabel();
@@ -207,6 +216,67 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Exam = new javax.swing.JPanel();
         Tab_Grade = new javax.swing.JPanel();
 
+        Add_Class_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Add_Class_Label_Subject.setText("Subject");
+
+        Add_Class_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Class_Label_Room.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Add_Class_Label_Room.setText("Room");
+
+        Add_Class_Room.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Class_Label_Day.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Add_Class_Label_Day.setText("Day");
+
+        Add_Class_Day.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Class_Label_Time.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Add_Class_Label_Time.setText("Time");
+
+        Add_Class_Time.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout Add_ClassLayout = new javax.swing.GroupLayout(Add_Class);
+        Add_Class.setLayout(Add_ClassLayout);
+        Add_ClassLayout.setHorizontalGroup(
+            Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Add_ClassLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Add_Class_Label_Subject)
+                    .addComponent(Add_Class_Label_Room, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Add_Class_Label_Day, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Add_Class_Label_Time, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Add_Class_Time, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(Add_Class_Day)
+                    .addComponent(Add_Class_Room)
+                    .addComponent(Add_Class_Subject))
+                .addContainerGap())
+        );
+        Add_ClassLayout.setVerticalGroup(
+            Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Add_ClassLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Class_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_Class_Label_Subject))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Class_Room, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_Class_Label_Room))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Class_Day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_Class_Label_Day))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Class_Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_Class_Label_Time))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("College Planner");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -224,14 +294,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         Register_Container.setBackground(new java.awt.Color(255, 255, 255));
 
-        Register_LabelUsername.setText("Username");
         Register_LabelUsername.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelUsername.setText("Username");
 
         Register_Username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Register_Username.setPreferredSize(new java.awt.Dimension(6, 25));
 
-        Register_LabelPassword.setText("Password");
         Register_LabelPassword.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelPassword.setText("Password");
 
         Register_FirstName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -241,19 +311,19 @@ public class MainFrame extends javax.swing.JFrame {
         Register_Password2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Register_Password2.setPreferredSize(new java.awt.Dimension(6, 25));
 
-        Register_LabelConfirmPassword.setText("Confirm Password");
         Register_LabelConfirmPassword.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelConfirmPassword.setText("Confirm Password");
 
-        Register_LabelFirstName.setText("First Name");
         Register_LabelFirstName.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelFirstName.setText("First Name");
 
         Register_LastName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Register_LabelLastName.setText("Last Name");
         Register_LabelLastName.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelLastName.setText("Last Name");
 
-        Register_LabelDate.setText("Date of Birth");
         Register_LabelDate.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelDate.setText("Date of Birth");
 
         Register_ButtonRegister.setBackground(new java.awt.Color(1, 148, 72));
         Register_ButtonRegister.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
@@ -268,8 +338,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        Register_LabelGender.setText("Gender");
         Register_LabelGender.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelGender.setText("Gender");
 
         Register_RadioMale.setBackground(new java.awt.Color(255, 255, 255));
         Register_ButtonGroup.add(Register_RadioMale);
@@ -282,15 +352,15 @@ public class MainFrame extends javax.swing.JFrame {
         Register_RadioFemale.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         Register_RadioFemale.setText("Female");
 
-        Register_CheckTOS.setText("I Agree to the Terms of Use");
         Register_CheckTOS.setBackground(new java.awt.Color(255, 255, 255));
         Register_CheckTOS.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
+        Register_CheckTOS.setText("I Agree to the Terms of Use");
 
         Register_DatePicker.setBackground(new java.awt.Color(255, 255, 255));
         Register_DatePicker.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Register_LabelEmail.setText("Email");
         Register_LabelEmail.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Register_LabelEmail.setText("Email");
 
         Register_Email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Register_Email.setPreferredSize(new java.awt.Dimension(6, 25));
@@ -390,15 +460,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Register_LabelTitle.setText("Create New Account");
         Register_LabelTitle.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
+        Register_LabelTitle.setText("Create New Account");
 
         Register_Back.setBackground(new java.awt.Color(255, 255, 255));
+        Register_Back.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
+        Register_Back.setForeground(new java.awt.Color(255, 255, 255));
         Register_Back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Register_Back.setBorderPainted(false);
         Register_Back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Register_Back.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
-        Register_Back.setForeground(new java.awt.Color(255, 255, 255));
         Register_Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Register_BackActionPerformed(evt);
@@ -446,19 +516,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         Login_Username.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
 
-        Login_LabelUsername.setText("Username");
         Login_LabelUsername.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Login_LabelUsername.setText("Username");
 
-        Login_LabelPassword.setText("Password");
         Login_LabelPassword.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Login_LabelPassword.setText("Password");
 
-        Login_ButtonLogin.setText("Log In");
         Login_ButtonLogin.setBackground(new java.awt.Color(1, 148, 72));
-        Login_ButtonLogin.setBorderPainted(false);
-        Login_ButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Login_ButtonLogin.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
         Login_ButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
+        Login_ButtonLogin.setText("Log In");
         Login_ButtonLogin.setToolTipText("");
+        Login_ButtonLogin.setBorderPainted(false);
+        Login_ButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Login_ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Login_ButtonLoginActionPerformed(evt);
@@ -510,16 +580,16 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        Login_LabelDontHaveAnAcc.setText("Dont't have an account?");
         Login_LabelDontHaveAnAcc.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Login_LabelDontHaveAnAcc.setText("Dont't have an account?");
 
-        Login_Register.setText("Register");
         Login_Register.setBackground(new java.awt.Color(1, 148, 72));
-        Login_Register.setBorderPainted(false);
-        Login_Register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Login_Register.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
         Login_Register.setForeground(new java.awt.Color(255, 255, 255));
+        Login_Register.setText("Register");
         Login_Register.setToolTipText("");
+        Login_Register.setBorderPainted(false);
+        Login_Register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Login_Register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Login_RegisterActionPerformed(evt);
@@ -575,42 +645,42 @@ public class MainFrame extends javax.swing.JFrame {
         Home.setMinimumSize(new java.awt.Dimension(800, 600));
         Home.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        Home_Semester.setText("Semester");
         Home_Semester.setBackground(new java.awt.Color(0, 92, 45));
+        Home_Semester.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Home_Semester.setForeground(new java.awt.Color(255, 255, 255));
+        Home_Semester.setText("Semester");
         Home_Semester.setBorder(null);
         Home_Semester.setBorderPainted(false);
         Home_Semester.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Home_Semester.setFocusPainted(false);
-        Home_Semester.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Home_Semester.setForeground(new java.awt.Color(255, 255, 255));
         Home_Semester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Home_SemesterActionPerformed(evt);
             }
         });
 
-        Home_Agenda.setText("Agenda");
         Home_Agenda.setBackground(new java.awt.Color(1, 148, 72));
+        Home_Agenda.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Home_Agenda.setForeground(new java.awt.Color(255, 255, 255));
+        Home_Agenda.setText("Agenda");
         Home_Agenda.setBorder(null);
         Home_Agenda.setBorderPainted(false);
         Home_Agenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Home_Agenda.setFocusPainted(false);
-        Home_Agenda.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Home_Agenda.setForeground(new java.awt.Color(255, 255, 255));
         Home_Agenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Home_AgendaActionPerformed(evt);
             }
         });
 
-        Home_Setting.setText("Setting");
         Home_Setting.setBackground(new java.awt.Color(1, 148, 72));
+        Home_Setting.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Home_Setting.setForeground(new java.awt.Color(255, 255, 255));
+        Home_Setting.setText("Setting");
         Home_Setting.setBorder(null);
         Home_Setting.setBorderPainted(false);
         Home_Setting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Home_Setting.setFocusPainted(false);
-        Home_Setting.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Home_Setting.setForeground(new java.awt.Color(255, 255, 255));
         Home_Setting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Home_SettingActionPerformed(evt);
@@ -651,8 +721,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Agenda.setBackground(new java.awt.Color(255, 255, 255));
 
-        Agenda_Label.setText("Agenda");
         Agenda_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
+        Agenda_Label.setText("Agenda");
 
         javax.swing.GroupLayout AgendaLayout = new javax.swing.GroupLayout(Agenda);
         Agenda.setLayout(AgendaLayout);
@@ -675,8 +745,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Setting.setBackground(new java.awt.Color(255, 255, 255));
 
-        Setting_Label.setText("Setting");
         Setting_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
+        Setting_Label.setText("Setting");
 
         javax.swing.GroupLayout SettingLayout = new javax.swing.GroupLayout(Setting);
         Setting.setLayout(SettingLayout);
@@ -699,8 +769,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Semester.setBackground(new java.awt.Color(255, 255, 255));
 
-        Semester_Label.setText("Semester");
         Semester_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
+        Semester_Label.setText("Semester");
 
         Home_Semester_List.setSelectionBackground(new java.awt.Color(1, 148, 72));
         Home_Semester_List.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -710,14 +780,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         Home_Semester_ScrollPane.setViewportView(Home_Semester_List);
 
-        Home_Semester1.setText("Add Semester");
         Home_Semester1.setBackground(new java.awt.Color(1, 148, 72));
+        Home_Semester1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Home_Semester1.setForeground(new java.awt.Color(255, 255, 255));
+        Home_Semester1.setText("Add Semester");
         Home_Semester1.setBorder(null);
         Home_Semester1.setBorderPainted(false);
         Home_Semester1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Home_Semester1.setFocusPainted(false);
-        Home_Semester1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Home_Semester1.setForeground(new java.awt.Color(255, 255, 255));
         Home_Semester1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Home_Semester1ActionPerformed(evt);
@@ -762,33 +832,33 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Overview.setBackground(new java.awt.Color(255, 255, 255));
         Tab_Overview.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Overview_Label_Goal.setText("Goal This Semester");
         Tab_Overview_Label_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_Goal.setText("Goal This Semester");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(jTextArea1);
 
-        Tab_Overview_Edit_Goal.setText("Edit Goal");
         Tab_Overview_Edit_Goal.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Overview_Edit_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Edit_Goal.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Overview_Edit_Goal.setText("Edit Goal");
         Tab_Overview_Edit_Goal.setBorder(null);
         Tab_Overview_Edit_Goal.setBorderPainted(false);
         Tab_Overview_Edit_Goal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Tab_Overview_Edit_Goal.setFocusPainted(false);
-        Tab_Overview_Edit_Goal.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Tab_Overview_Edit_Goal.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Overview_Edit_Goal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Tab_Overview_Edit_GoalActionPerformed(evt);
             }
         });
 
-        Tab_Overview_Label_Grade.setText("Grade This Semester");
         Tab_Overview_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_Grade.setText("Grade This Semester");
 
-        Tab_Overview_Label_GPA.setText("4.0");
         Tab_Overview_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Overview_Label_GPA.setText("4.0");
 
         javax.swing.GroupLayout Tab_OverviewLayout = new javax.swing.GroupLayout(Tab_Overview);
         Tab_Overview.setLayout(Tab_OverviewLayout);
@@ -830,14 +900,14 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Class.setBackground(new java.awt.Color(255, 255, 255));
         Tab_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Class_Add_Class.setText("Add Class");
         Tab_Class_Add_Class.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Class_Add_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Class_Add_Class.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Class_Add_Class.setText("Add Class");
         Tab_Class_Add_Class.setBorder(null);
         Tab_Class_Add_Class.setBorderPainted(false);
         Tab_Class_Add_Class.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Tab_Class_Add_Class.setFocusPainted(false);
-        Tab_Class_Add_Class.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Tab_Class_Add_Class.setForeground(new java.awt.Color(255, 255, 255));
         Tab_Class_Add_Class.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Tab_Class_Add_ClassActionPerformed(evt);
@@ -970,7 +1040,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         OverviewLayout.setVerticalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         Home_Container.add(Overview, "card5");
@@ -988,7 +1058,7 @@ public class MainFrame extends javax.swing.JFrame {
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Home_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Home_Container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Home_Container, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         getContentPane().add(Home, "card4");
@@ -1101,46 +1171,49 @@ public class MainFrame extends javax.swing.JFrame {
     private void Home_Semester1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Home_Semester1ActionPerformed
         //String year = JOptionPane.showInputDialog(rootPane, "What year?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
         String semester = JOptionPane.showInputDialog(rootPane, "What semester?", "Add Semester", JOptionPane.QUESTION_MESSAGE);
-        int kembar = 0;
-        for (int i = 0; i < Home_Semester_List.getModel().getSize(); i++){
-            Object isi = Home_Semester_List.getModel().getElementAt(i);
-            String sudah = (String) isi;
-            if (semester.equals(sudah)){
-                kembar = 1;
-            }
-        }
-        if (kembar == 0){
-            smtr.addElement(semester);
-            String[] str = new String[Home_Semester_List.getModel().getSize()];
+        if (semester != null && !semester.trim().isEmpty()) {
+            int kembar = 0;
             for (int i = 0; i < Home_Semester_List.getModel().getSize(); i++){
-                str[i] = Home_Semester_List.getModel().getElementAt(i);
-            }
-            
-            ArrayList<Integer> tampungInt = new ArrayList<>();
-            ArrayList<String> tampungStr = new ArrayList<>();
-            for (int i = 0; i < str.length; i++) {
-                try {
-                    tampungInt.add(Integer.parseInt(str[i]));
-                } catch (Exception e) {
-                    tampungStr.add(str[i]);
+                Object isi = Home_Semester_List.getModel().getElementAt(i);
+                String sudah = (String) isi;
+                if (semester.equals(sudah)){
+                    kembar = 1;
                 }
             }
-            
-            Collections.sort(tampungInt);
-            Collections.sort(tampungStr);
-            
-            smtr.removeAllElements();
-            for (int i = 0; i < tampungInt.size(); i++){
-                smtr.addElement(tampungInt.get(i).toString());
+            if (kembar == 0){
+                smtr.addElement(semester);
+                String[] str = new String[Home_Semester_List.getModel().getSize()];
+                for (int i = 0; i < Home_Semester_List.getModel().getSize(); i++){
+                    str[i] = Home_Semester_List.getModel().getElementAt(i);
+                }
+
+                ArrayList<Integer> tampungInt = new ArrayList<>();
+                ArrayList<String> tampungStr = new ArrayList<>();
+                for (int i = 0; i < str.length; i++) {
+                    try {
+                        tampungInt.add(Integer.parseInt(str[i]));
+                    } catch (Exception e) {
+                        tampungStr.add(str[i]);
+                    }
+                }
+
+                Collections.sort(tampungInt);
+                Collections.sort(tampungStr);
+
+                smtr.removeAllElements();
+                for (int i = 0; i < tampungInt.size(); i++){
+                    smtr.addElement(tampungInt.get(i).toString());
+                }
+                for (int i = 0; i < tampungStr.size(); i++){
+                    smtr.addElement(tampungStr.get(i));
+                }
+                db.get(id).addSemester((semester));
+                save();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Semester sudah ada", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            for (int i = 0; i < tampungStr.size(); i++){
-                smtr.addElement(tampungStr.get(i));
-            }
-            db.get(id).addSemester((semester));
-            save();
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Semester sudah ada", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_Home_Semester1ActionPerformed
 
     private void Home_Semester_ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Home_Semester_ListMouseClicked
@@ -1213,46 +1286,54 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Tab_Overview_Edit_GoalActionPerformed
 
     private void Tab_Class_Add_ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_ClassActionPerformed
-        int x = 0;
-        ArrayList<String> bantu = new ArrayList<>();
-        String subject = JOptionPane.showInputDialog(rootPane, "What subject?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        String room = JOptionPane.showInputDialog(rootPane, "What room?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        String day = JOptionPane.showInputDialog(rootPane, "What day?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        String time = JOptionPane.showInputDialog(rootPane, "What time?", "Add Class", JOptionPane.QUESTION_MESSAGE);
-        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-            bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
-        }
-        int kembar = 0;
-        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-            String split[] = bantu.get(i).toString().split("-");
-            if (subject.equalsIgnoreCase(split[0])){
-                kembar = 1;
-                break;
+        int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Class, "Add Class", JOptionPane.OK_CANCEL_OPTION);
+        if (dialogResult == 0) {
+            if (Add_Class_Day.getText().trim().isEmpty() || Add_Class_Room.getText().trim().isEmpty() || Add_Class_Subject.getText().trim().isEmpty() || Add_Class_Time.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        if (kembar == 0){
-            bantu.clear();
-            db.get(id).semester.get(indexSemester).addClass(subject+"-"+room+"-"+day+"-"+time);
-            save();
-            data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+            else{
+                int x = 0;
+                ArrayList<String> bantu = new ArrayList<>();
+                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+                    bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+                }
+                int kembar = 0;
+                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+                    String split[] = bantu.get(i).toString().split("-");
+                    if (Add_Class_Subject.getText().equalsIgnoreCase(split[0])){
+                        kembar = 1;
+                        break;
+                    }
+                }
+                if (kembar == 0){
+                    bantu.clear();
+                    db.get(id).semester.get(indexSemester).addClass(Add_Class_Subject.getText()+"-"+Add_Class_Room.getText()+"-"+Add_Class_Day.getText()+"-"+Add_Class_Time.getText());
+                    save();
+                    data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
 
-            String header[] = {"Subject", "Room", "Day", "Time"};
-            for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-                bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+                    String header[] = {"Subject", "Room", "Day", "Time"};
+                    for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+                        bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+                    }
+                    for (int i = 0; i < bantu.size(); i++){
+                        String potong[] = (bantu.get(i).toString()).split("-");
+                        data[x][0] = potong[0];
+                        data[x][1] = potong[1];
+                        data[x][2] = potong[2];
+                        data[x][3] = potong[3];
+                        x++;
+                    }
+                    jTable1.setModel(new DefaultTableModel(data, header));
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Subject already exists", "Error", JOptionPane.ERROR_MESSAGE);
+                    bantu.clear();
+                }
             }
-            for (int i = 0; i < bantu.size(); i++){
-                String potong[] = (bantu.get(i).toString()).split("-");
-                data[x][0] = potong[0];
-                data[x][1] = potong[1];
-                data[x][2] = potong[2];
-                data[x][3] = potong[3];
-                x++;
-            }
-            jTable1.setModel(new DefaultTableModel(data, header));
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Subject already exists", "Error", JOptionPane.ERROR_MESSAGE);
-            bantu.clear();
         }
+        Add_Class_Day.setText("");
+        Add_Class_Room.setText("");
+        Add_Class_Subject.setText("");
+        Add_Class_Time.setText("");
     }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
 
     private void Tab_Class_Add_Class1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Class_Add_Class1ActionPerformed
@@ -1302,6 +1383,15 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Add_Class;
+    private javax.swing.JTextField Add_Class_Day;
+    private javax.swing.JLabel Add_Class_Label_Day;
+    private javax.swing.JLabel Add_Class_Label_Room;
+    private javax.swing.JLabel Add_Class_Label_Subject;
+    private javax.swing.JLabel Add_Class_Label_Time;
+    private javax.swing.JTextField Add_Class_Room;
+    private javax.swing.JTextField Add_Class_Subject;
+    private javax.swing.JTextField Add_Class_Time;
     private javax.swing.JPanel Agenda;
     private javax.swing.JLabel Agenda_Label;
     private javax.swing.JPanel Home;
