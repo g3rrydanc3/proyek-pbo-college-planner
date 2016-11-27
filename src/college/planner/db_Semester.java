@@ -7,6 +7,8 @@ public class db_Semester implements Serializable{
     private String name;
     private String description;
     public ArrayList<db_Class> cls = new ArrayList<>();
+    public ArrayList<db_Homework> homework = new ArrayList<>();
+    public ArrayList<db_Exam> exam = new ArrayList<>();
 
     public db_Semester(String name) {
         this.name = name;
@@ -34,15 +36,21 @@ public class db_Semester implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    } 
+    
+    public ArrayList<db_Homework> getHomework() {
+        return homework;
     }
     
-    @Override
-    public String toString() {
-        return name;
+    public void addHomework(String s){
+        homework.add(new db_Homework(s));
     }
-    //public void addCls(ArrayList<db_Class> cls) {
-    //    cls.add(new db_Class())
-    //}
     
+    public ArrayList<db_Exam> getExam() {
+        return exam;
+    }
     
+    public void addExam(String s){
+        exam.add(new db_Exam(s));
+    }
 }
