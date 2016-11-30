@@ -1,7 +1,6 @@
 package college.planner;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class db_Homework implements Serializable{
     String homework;
@@ -16,9 +15,5 @@ public class db_Homework implements Serializable{
 
     public void setHomework(String homework) {
         this.homework = homework;
-    }
-    
-    
-    
-    
+    }  
 }

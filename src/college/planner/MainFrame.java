@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package college.planner;
 
 import com.toedter.calendar.JCalendar;
@@ -18,21 +13,29 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
     DefaultListModel<String> smtr = new DefaultListModel<>();
-    //int x = 0;
+    DefaultComboBoxModel<String> subjectHomework = new DefaultComboBoxModel<String>();
+    DefaultComboBoxModel<String> subjectExam = new DefaultComboBoxModel<String>();
+    DefaultComboBoxModel<String> subjectGrade = new DefaultComboBoxModel<String>();
     Object data[][]=null;
     Object homework[][] = null;
     Object exam[][] = null;
-    //ArrayList<String>addclass = new ArrayList<String>();
+    Object grade[][] = null;
+    Object totalgrade[][] = null;
     String header[] = {"Subject", "Room", "Day", "Time"};
     String headerHomework[] = {"Subject", "Description", "Deadline"};
     String headerExam[] = {"Subject", "Room", "Day", "Time"};
+    String headerGrade[] = {"Subject","From", "Score", "%", "Delete"};
+    String headerTotalGrade[] = {"Subject", "GPA"};
     ArrayList<String> addclass = new ArrayList<>();
     int indexSemester;
     
@@ -54,10 +57,31 @@ public class MainFrame extends javax.swing.JFrame {
         Login_Icon.setIcon(imgLogo);
         Home_Logo.setIcon(imgLogo);
         
-        jTable1.setModel(new DefaultTableModel(data, header));
-        jTable2.setModel(new DefaultTableModel(homework, header));
-        jTable3.setModel(new DefaultTableModel(exam,headerExam));
+        table_class.setModel(new DefaultTableModel(data, header));
+        table_homework.setModel(new DefaultTableModel(homework, header));
+        table_exam.setModel(new DefaultTableModel(exam,headerExam));
+        table_grade.setModel(new DefaultTableModel(grade,headerGrade));
+        table_total_grade.setModel(new DefaultTableModel(totalgrade,headerTotalGrade));
         indexSemester=-1;
+        
+        
+        //agenda
+        jCalendar1.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() 
+         {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                String convert = String.valueOf(jCalendar1.getDate().getYear());
+                String tahun= "20" + convert.substring(1, 3);
+                System.out.println(e.getNewValue() + " " + 
+                        (jCalendar1.getDate().getMonth()+1) + " " +
+                        tahun);
+
+            }
+        });
+        
+        Add_Home_Subject.setModel(subjectHomework);
+        Add_Exam_Subject.setModel(subjectExam);
+        Add_Grade_Subject.setModel(subjectGrade);
     }
     ArrayList<db_User> db = new ArrayList<>();
     int id = -1;
@@ -151,17 +175,18 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Class_Start = new com.github.lgooddatepicker.components.TimePicker();
         Add_Class_End = new com.github.lgooddatepicker.components.TimePicker();
         Add_Class_Day = new javax.swing.JComboBox<>();
+        Add_Class_Label_Time2 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
         Add_Homework = new javax.swing.JPanel();
         Add_Home_Label_Subject = new javax.swing.JLabel();
-        Add_Home_Subject = new javax.swing.JTextField();
         Add_Home_Label_description = new javax.swing.JLabel();
         Add_Home_Label_deadline = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         Add_Home_description = new javax.swing.JTextArea();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        Add_Home_Subject = new javax.swing.JComboBox<>();
         Add_Exam = new javax.swing.JPanel();
         Add_Exam_Label_Subject = new javax.swing.JLabel();
-        Add_Exam_Subject = new javax.swing.JTextField();
         Add_Exam_Label_Room = new javax.swing.JLabel();
         Add_Exam_Label_Start = new javax.swing.JLabel();
         Add_Exam_Room = new javax.swing.JTextField();
@@ -170,6 +195,16 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Exam_End = new com.github.lgooddatepicker.components.TimePicker();
         Add_Exam_Label_Date = new javax.swing.JLabel();
         Add_Exam_Date = new com.toedter.calendar.JDateChooser();
+        Add_Exam_Subject = new javax.swing.JComboBox<>();
+        Add_Grade = new javax.swing.JPanel();
+        Add_Grade_Label_Subject = new javax.swing.JLabel();
+        Add_Grade_Subject = new javax.swing.JComboBox<>();
+        Add_Grade_Label_From = new javax.swing.JLabel();
+        Add_Grade_Label_Score = new javax.swing.JLabel();
+        Add_Exam_Label_persen = new javax.swing.JLabel();
+        Add_Grade_From = new javax.swing.JComboBox<>();
+        Add_Grade_Score = new javax.swing.JTextField();
+        Add_Grade_Persen = new javax.swing.JTextField();
         Register = new javax.swing.JPanel();
         Register_Container = new javax.swing.JPanel();
         Register_LabelUsername = new javax.swing.JLabel();
@@ -213,6 +248,7 @@ public class MainFrame extends javax.swing.JFrame {
         Home_Container = new javax.swing.JPanel();
         Agenda = new javax.swing.JPanel();
         Agenda_Label = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         Setting = new javax.swing.JPanel();
         Setting_Label = new javax.swing.JLabel();
         Semester = new javax.swing.JPanel();
@@ -232,16 +268,24 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Class = new javax.swing.JPanel();
         Tab_Class_Add_Class = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_class = new javax.swing.JTable();
         Tab_Homework = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        table_homework = new javax.swing.JTable();
         Tab_Homework_Add_Homework = new javax.swing.JButton();
         Tab_Exam = new javax.swing.JPanel();
         Tab_Exam_Add_Exam = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        table_exam = new javax.swing.JTable();
         Tab_Grade = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        table_total_grade = new javax.swing.JTable();
+        Tab_Grade_Add_Grade = new javax.swing.JButton();
+        Tab_Grade_Label_Grade = new javax.swing.JLabel();
+        Tab_Grade_Label_GPA = new javax.swing.JLabel();
+        Tab_Grade_Label_Total = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        table_grade = new javax.swing.JTable();
 
         Add_Class_Label_Subject.setText("Subject");
         Add_Class_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
@@ -262,8 +306,13 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Class_Label_Time1.setText("Time Start");
         Add_Class_Label_Time1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Class_Day.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Class_Day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }));
+        Add_Class_Day.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Class_Label_Time2.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Add_Class_Label_Time2.setText("Credit");
+
+        jSpinner1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout Add_ClassLayout = new javax.swing.GroupLayout(Add_Class);
         Add_Class.setLayout(Add_ClassLayout);
@@ -272,6 +321,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(Add_ClassLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Add_Class_Label_Time2)
                     .addComponent(Add_Class_Label_Room)
                     .addComponent(Add_Class_Label_Day)
                     .addComponent(Add_Class_Label_Time)
@@ -283,7 +333,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Add_Class_Subject)
                     .addComponent(Add_Class_Start, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                     .addComponent(Add_Class_End, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Add_Class_Day, 0, 1, Short.MAX_VALUE))
+                    .addComponent(Add_Class_Day, 0, 1, Short.MAX_VALUE)
+                    .addComponent(jSpinner1))
                 .addContainerGap())
         );
         Add_ClassLayout.setVerticalGroup(
@@ -310,13 +361,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Add_Class_Label_Time)
                     .addComponent(Add_Class_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_ClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Class_Label_Time2)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Add_Home_Label_Subject.setText("Subject");
         Add_Home_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-
-        Add_Home_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         Add_Home_Label_description.setText("Description");
         Add_Home_Label_description.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
@@ -340,9 +393,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Add_Home_Label_Subject))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Add_Home_Subject)
                     .addComponent(jScrollPane4)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Add_Home_Subject, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Add_HomeworkLayout.setVerticalGroup(
@@ -350,8 +403,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(Add_HomeworkLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Add_Home_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Add_Home_Label_Subject))
+                    .addComponent(Add_Home_Label_Subject)
+                    .addComponent(Add_Home_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Add_Home_Label_description)
@@ -360,27 +413,25 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Add_Home_Label_deadline)
                     .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        Add_Exam_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Exam_Label_Subject.setText("Subject");
+        Add_Exam_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Exam_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-
-        Add_Exam_Label_Room.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Exam_Label_Room.setText("Room");
+        Add_Exam_Label_Room.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Exam_Label_Start.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Exam_Label_Start.setText("Time Start");
+        Add_Exam_Label_Start.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         Add_Exam_Room.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Exam_Label_End.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Exam_Label_End.setText("Time End");
+        Add_Exam_Label_End.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Exam_Label_Date.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Exam_Label_Date.setText("Date");
+        Add_Exam_Label_Date.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout Add_ExamLayout = new javax.swing.GroupLayout(Add_Exam);
         Add_Exam.setLayout(Add_ExamLayout);
@@ -405,8 +456,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Add_Exam_Room, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Add_Exam_Date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))))
+                            .addComponent(Add_Exam_Date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         Add_ExamLayout.setVerticalGroup(
@@ -414,8 +465,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(Add_ExamLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Add_Exam_Label_Subject))
+                    .addComponent(Add_Exam_Label_Subject)
+                    .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Add_Exam_Label_Room)
@@ -432,7 +483,62 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Add_Exam_Label_End)
                     .addComponent(Add_Exam_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        Add_Grade_Label_Subject.setText("Subject");
+        Add_Grade_Label_Subject.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Grade_Label_From.setText("From");
+        Add_Grade_Label_From.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Grade_Label_Score.setText("Score");
+        Add_Grade_Label_Score.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Exam_Label_persen.setText("%");
+        Add_Exam_Label_persen.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Add_Grade_From.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homework", "Assignment", "Exam", "Extra Point" }));
+
+        javax.swing.GroupLayout Add_GradeLayout = new javax.swing.GroupLayout(Add_Grade);
+        Add_Grade.setLayout(Add_GradeLayout);
+        Add_GradeLayout.setHorizontalGroup(
+            Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Add_GradeLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Add_Grade_Label_From)
+                    .addComponent(Add_Grade_Label_Subject)
+                    .addComponent(Add_Grade_Label_Score)
+                    .addComponent(Add_Exam_Label_persen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Add_Grade_Persen)
+                    .addComponent(Add_Grade_From, javax.swing.GroupLayout.Alignment.TRAILING, 0, 115, Short.MAX_VALUE)
+                    .addComponent(Add_Grade_Score)
+                    .addComponent(Add_Grade_Subject, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
+        );
+        Add_GradeLayout.setVerticalGroup(
+            Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Add_GradeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Grade_Label_Subject)
+                    .addComponent(Add_Grade_Subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Grade_Label_From)
+                    .addComponent(Add_Grade_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Grade_Label_Score)
+                    .addComponent(Add_Grade_Score, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(Add_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_Exam_Label_persen)
+                    .addComponent(Add_Grade_Persen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -888,15 +994,21 @@ public class MainFrame extends javax.swing.JFrame {
             AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AgendaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Agenda_Label)
-                .addContainerGap(448, Short.MAX_VALUE))
+                .addGroup(AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                    .addGroup(AgendaLayout.createSequentialGroup()
+                        .addComponent(Agenda_Label)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         AgendaLayout.setVerticalGroup(
             AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AgendaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Agenda_Label)
-                .addContainerGap(549, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         Home_Container.add(Agenda, "card4");
@@ -1072,7 +1184,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_class.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1083,7 +1195,7 @@ public class MainFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(table_class);
 
         javax.swing.GroupLayout Tab_ClassLayout = new javax.swing.GroupLayout(Tab_Class);
         Tab_Class.setLayout(Tab_ClassLayout);
@@ -1110,7 +1222,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         Tab_Homework.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        table_homework.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1121,7 +1233,7 @@ public class MainFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(table_homework);
 
         Tab_Homework_Add_Homework.setText("Add Homework");
         Tab_Homework_Add_Homework.setBackground(new java.awt.Color(1, 148, 72));
@@ -1176,7 +1288,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        table_exam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1187,7 +1299,7 @@ public class MainFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(jTable3);
+        jScrollPane5.setViewportView(table_exam);
 
         javax.swing.GroupLayout Tab_ExamLayout = new javax.swing.GroupLayout(Tab_Exam);
         Tab_Exam.setLayout(Tab_ExamLayout);
@@ -1214,15 +1326,105 @@ public class MainFrame extends javax.swing.JFrame {
 
         Tab_Grade.setBackground(new java.awt.Color(255, 255, 255));
 
+        table_total_grade.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(table_total_grade);
+
+        Tab_Grade_Add_Grade.setText("Add Grade");
+        Tab_Grade_Add_Grade.setBackground(new java.awt.Color(1, 148, 72));
+        Tab_Grade_Add_Grade.setBorder(null);
+        Tab_Grade_Add_Grade.setBorderPainted(false);
+        Tab_Grade_Add_Grade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Tab_Grade_Add_Grade.setFocusPainted(false);
+        Tab_Grade_Add_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Tab_Grade_Add_Grade.setForeground(new java.awt.Color(255, 255, 255));
+        Tab_Grade_Add_Grade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Tab_Grade_Add_GradeActionPerformed(evt);
+            }
+        });
+
+        Tab_Grade_Label_Grade.setText("Grade This Semester");
+        Tab_Grade_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Tab_Grade_Label_GPA.setText("4.0");
+        Tab_Grade_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        Tab_Grade_Label_Total.setText("Total grade each class");
+        Tab_Grade_Label_Total.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+
+        table_grade.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        table_grade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_gradeMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(table_grade);
+
         javax.swing.GroupLayout Tab_GradeLayout = new javax.swing.GroupLayout(Tab_Grade);
         Tab_Grade.setLayout(Tab_GradeLayout);
         Tab_GradeLayout.setHorizontalGroup(
             Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGroup(Tab_GradeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Tab_Grade_Add_Grade, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addGroup(Tab_GradeLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                        .addGap(184, 184, 184))
+                    .addGroup(Tab_GradeLayout.createSequentialGroup()
+                        .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Tab_Grade_Label_Total)
+                            .addGroup(Tab_GradeLayout.createSequentialGroup()
+                                .addComponent(Tab_Grade_Label_Grade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Tab_Grade_Label_GPA)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Tab_GradeLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane7)
+                    .addContainerGap()))
         );
         Tab_GradeLayout.setVerticalGroup(
             Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGroup(Tab_GradeLayout.createSequentialGroup()
+                .addGap(241, 241, 241)
+                .addComponent(Tab_Grade_Add_Grade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Tab_Grade_Label_Total)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Tab_Grade_Label_Grade)
+                    .addComponent(Tab_Grade_Label_GPA))
+                .addContainerGap(116, Short.MAX_VALUE))
+            .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Tab_GradeLayout.createSequentialGroup()
+                    .addGap(33, 33, 33)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(332, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Grade", Tab_Grade);
@@ -1415,7 +1617,7 @@ public class MainFrame extends javax.swing.JFrame {
          if (evt.getClickCount() == 2) {
             int index = Home_Semester_List.locationToIndex(evt.getPoint());
             changePanel("Overview");
-            //load semester
+            //load class
             Home_Semester.setBackground(new Color(1, 148, 72));
             for (int i = 0; i < Home_Semester_List.getModel().getSize(); i++) {
                 if(Home_Semester_List.getSelectedValue().equals(db.get(id).semester.get(i).getName())){
@@ -1423,9 +1625,9 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-            String header[] = {"Subject", "Room", "Day", "Time"};
+            String header[] = {"Subject", "Room", "Day", "Time", "Credit"};
             int x = 0;
-            data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+            data= new Object[db.get(id).semester.get(indexSemester).cls.size()][5];
             ArrayList<String> loadClass = new ArrayList<>();
             for (int i = 0; i < db.get(id).semester.get(indexSemester).cls.size(); i++){
                 loadClass.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
@@ -1436,9 +1638,10 @@ public class MainFrame extends javax.swing.JFrame {
                 data[x][1] = potong[1];
                 data[x][2] = potong[2];
                 data[x][3] = potong[3];
+                data[x][4] = potong[4];
                 x++;
             }
-            jTable1.setModel(new DefaultTableModel(data, header));
+            table_class.setModel(new DefaultTableModel(data, header));
             //load overview
             if(db.get(id).semester.get(indexSemester).getDescription()!=null){
                 jTextArea1.setText(db.get(id).semester.get(indexSemester).getDescription().toString());
@@ -1460,7 +1663,7 @@ public class MainFrame extends javax.swing.JFrame {
                 homework[y][2] = potong[2];
                 y++;
             }
-            jTable2.setModel(new DefaultTableModel(homework, headerHomework));
+            table_homework.setModel(new DefaultTableModel(homework, headerHomework));
             //load exam
             int z = 0;
             ArrayList<String> LoadExam = new ArrayList<>();
@@ -1477,7 +1680,7 @@ public class MainFrame extends javax.swing.JFrame {
                 exam[z][3] = potong[3];
                 z++;
             }
-            jTable3.setModel(new DefaultTableModel(exam, headerExam));
+            table_exam.setModel(new DefaultTableModel(exam, headerExam));
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
 
@@ -1529,11 +1732,11 @@ public class MainFrame extends javax.swing.JFrame {
                 }
                 if (kembar == 0){
                     bantu.clear();
-                    db.get(id).semester.get(indexSemester).addClass(Add_Class_Subject.getText()+"-"+Add_Class_Room.getText()+"-"+Add_Class_Day.getSelectedItem().toString()+"-"+Add_Class_Start.getTime().toString()+" to "+ Add_Class_End.getTime().toString());
+                    db.get(id).semester.get(indexSemester).addClass(Add_Class_Subject.getText()+"-"+Add_Class_Room.getText()+"-"+Add_Class_Day.getSelectedItem().toString()+"-"+Add_Class_Start.getTime().toString()+" to "+ Add_Class_End.getTime().toString()+"-"+jSpinner1.getValue());
                     save();
-                    data= new Object[db.get(id).semester.get(indexSemester).cls.size()][4];
+                    data= new Object[db.get(id).semester.get(indexSemester).cls.size()][5];
 
-                    String header[] = {"Subject", "Room", "Day", "Time"};
+                    String header[] = {"Subject", "Room", "Day", "Time", "Credit"};
                     for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
                         bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
                     }
@@ -1543,9 +1746,10 @@ public class MainFrame extends javax.swing.JFrame {
                         data[x][1] = potong[1];
                         data[x][2] = potong[2];
                         data[x][3] = potong[3];
+                        data[x][4] = potong[4];
                         x++;
                     }
-                    jTable1.setModel(new DefaultTableModel(data, header));
+                    table_class.setModel(new DefaultTableModel(data, header));
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Subject already exists", "Error", JOptionPane.ERROR_MESSAGE);
                     bantu.clear();
@@ -1559,107 +1763,182 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Tab_Class_Add_ClassActionPerformed
 
     private void Tab_Homework_Add_HomeworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Homework_Add_HomeworkActionPerformed
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+            String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
+            subjectHomework.addElement(temp[0]);
+        }
         int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Homework, "Add Homework", JOptionPane.OK_CANCEL_OPTION);
         if (dialogResult == 0) {
-            if (Add_Home_Subject.getText().trim().isEmpty() || Add_Home_description.getText().trim().isEmpty() || datePicker1.getDate().toString().trim().isEmpty()) {
+            if (Add_Home_description.getText().trim().isEmpty() || datePicker1.getDate().toString().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 int x = 0;
                 ArrayList<String> bantu = new ArrayList<>();
-                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-                    bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+                db.get(id).semester.get(indexSemester).addHomework(Add_Home_Subject.getSelectedItem().toString()+"-"+Add_Home_description.getText()+"-"+datePicker1.getDate());
+                save();
+                for (int i = 0; i < db.get(id).semester.get(indexSemester).homework.size(); i++){
+                    bantu.add(db.get(id).semester.get(indexSemester).homework.get(i).getHomework());
                 }
-                int ketemu = 0;
-                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-                    String split[] = bantu.get(i).toString().split("-");
-                    if (Add_Home_Subject.getText().equalsIgnoreCase(split[0])){
-                        ketemu = 1;
-                        break;
-                    }
-                }
-                if (ketemu == 0){
-                    bantu.clear();
-                    JOptionPane.showMessageDialog(rootPane, "Subject tidak ada", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    bantu.clear();
-                    db.get(id).semester.get(indexSemester).addHomework(Add_Home_Subject.getText()+"-"+Add_Home_description.getText()+"-"+datePicker1.getDate());
-                    save();
-                    for (int i = 0; i < db.get(id).semester.get(indexSemester).homework.size(); i++){
-                        bantu.add(db.get(id).semester.get(indexSemester).homework.get(i).getHomework());
-                    }
-                    homework= new Object[bantu.size()][3];
+                homework= new Object[bantu.size()][3];
 
-                    String headerHomework[] = {"Subject", "Description", "Deadline"};
-                    
-                    for (int i = 0; i < bantu.size(); i++){
-                        String potong[] = (bantu.get(i).toString()).split("-");
-                        homework[x][0] = potong[0];
-                        homework[x][1] = potong[1];
-                        homework[x][2] = potong[2];
-                        x++;
-                    }
-                    jTable2.setModel(new DefaultTableModel(homework, headerHomework));
+                String headerHomework[] = {"Subject", "Description", "Deadline"};
+
+                for (int i = 0; i < bantu.size(); i++){
+                    String potong[] = (bantu.get(i).toString()).split("-");
+                    homework[x][0] = potong[0];
+                    homework[x][1] = potong[1];
+                    homework[x][2] = potong[2];
+                    x++;
                 }
+                table_homework.setModel(new DefaultTableModel(homework, headerHomework));
             }
         }
-        Add_Home_Subject.setText("");
         Add_Home_description.setText("");
         datePicker1.setDate(null);
+        subjectHomework.removeAllElements();
     }//GEN-LAST:event_Tab_Homework_Add_HomeworkActionPerformed
 
     private void Tab_Exam_Add_ExamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Exam_Add_ExamActionPerformed
+        ArrayList<String> subject = new ArrayList<>();
+        ArrayList<String> exm = new ArrayList<>();
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+            String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
+            subject.add(temp[0]);
+        }
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getExam().size(); i++){
+            String temp[] = db.get(id).semester.get(indexSemester).exam.get(i).getExam().split("-");
+            exm.add(temp[0]);
+        }
+        if (exm.size()> 0){
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).getExam().size(); i++){
+                for (int j = 0; j < db.get(id).semester.get(indexSemester).getCls().size(); j++){
+                    if (subject.get(j).equals(exm.get(i))){
+                    }else{
+                        subjectExam.addElement(subject.get(j));
+                    }
+                }
+            }
+        }else{
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+                String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
+                subjectExam.addElement(temp[0]);
+            }
+        }
         int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Exam, "Add Exam", JOptionPane.OK_CANCEL_OPTION);
         if (dialogResult == 0) {
-            if (Add_Exam_Subject.getText().trim().isEmpty() || Add_Exam_Room.getText().trim().isEmpty() || Add_Exam_Date.getDate().toString().trim().isEmpty() || Add_Exam_Start== null || Add_Exam_End==null) {
+            if (Add_Exam_Room.getText().trim().isEmpty() || Add_Exam_Date.getDate().toString().trim().isEmpty() || Add_Exam_Start== null || Add_Exam_End==null) {
                 JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 int x = 0;
                 ArrayList<String> bantu = new ArrayList<>();
-                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-                    bantu.add(db.get(id).semester.get(indexSemester).cls.get(i).getName());
+                db.get(id).semester.get(indexSemester).addExam(Add_Exam_Subject.getSelectedItem().toString()+"-"+Add_Exam_Room.getText()+"-"+Add_Exam_Date.getDate()+"-"+Add_Exam_Start.getTime().toString()+" to "+Add_Exam_End.getTime().toString());
+                save();
+                for (int i = 0; i < db.get(id).semester.get(indexSemester).exam.size(); i++){
+                    bantu.add(db.get(id).semester.get(indexSemester).exam.get(i).getExam());
                 }
-                int ketemu = 0;
-                for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
-                    String split[] = bantu.get(i).toString().split("-");
-                    if (Add_Exam_Subject.getText().equalsIgnoreCase(split[0])){
-                        ketemu = 1;
-                        break;
-                    }
-                }
-                if (ketemu == 0){
-                    bantu.clear();
-                    JOptionPane.showMessageDialog(rootPane, "Subject tidak ada", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    bantu.clear();
-                    db.get(id).semester.get(indexSemester).addExam(Add_Exam_Subject.getText()+"-"+Add_Exam_Room.getText()+"-"+Add_Exam_Date.getDate()+"-"+Add_Exam_Start.getTime().toString()+" to "+Add_Exam_End.getTime().toString());
-                    save();
-                    for (int i = 0; i < db.get(id).semester.get(indexSemester).exam.size(); i++){
-                        bantu.add(db.get(id).semester.get(indexSemester).exam.get(i).getExam());
-                    }
-                    exam= new Object[bantu.size()][4];
+                exam= new Object[bantu.size()][4];
 
-                    String headerExam[] = {"Subject", "Room", "Day", "Time"};
-                    
-                    for (int i = 0; i < bantu.size(); i++){
-                        String potong[] = (bantu.get(i).toString()).split("-");
-                        exam[x][0] = potong[0];
-                        exam[x][1] = potong[1];
-                        exam[x][2] = potong[2];
-                        exam[x][3] = potong[3];
-                        x++;
-                    }
-                    jTable3.setModel(new DefaultTableModel(exam, headerExam));
+                String headerExam[] = {"Subject", "Room", "Day", "Time"};
+
+                for (int i = 0; i < bantu.size(); i++){
+                    String potong[] = (bantu.get(i).toString()).split("-");
+                    exam[x][0] = potong[0];
+                    exam[x][1] = potong[1];
+                    exam[x][2] = potong[2];
+                    exam[x][3] = potong[3];
+                    x++;
                 }
+                table_exam.setModel(new DefaultTableModel(exam, headerExam));
             }
         }
-        Add_Exam_Subject.setText("");
         Add_Exam_Room.setText("");
         Add_Exam_Date.setDate(null);
         Add_Exam_Start.setTime(null);
         Add_Exam_End.setTime(null);
+        subjectExam.removeAllElements();
     }//GEN-LAST:event_Tab_Exam_Add_ExamActionPerformed
+
+    private void Tab_Grade_Add_GradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Grade_Add_GradeActionPerformed
+        
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
+            String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
+            subjectGrade.addElement(temp[0]);
+        }
+        int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Grade, "Add Grade", JOptionPane.OK_CANCEL_OPTION);
+        if (dialogResult == 0) {
+            if (Add_Grade_Score.getText().trim().isEmpty() || Add_Grade_Persen.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                int x = 0;
+                ArrayList<String> bantu = new ArrayList<>();
+                db.get(id).semester.get(indexSemester).addGrade(Add_Grade_Subject.getSelectedItem().toString()+"-"+Add_Grade_From.getSelectedItem().toString()+"-"+Add_Grade_Score.getText()+"/100"+"-"+Add_Grade_Persen.getText()+"%");
+                //save();
+                for (int i = 0; i < db.get(id).semester.get(indexSemester).grade.size(); i++){
+                    bantu.add(db.get(id).semester.get(indexSemester).grade.get(i).getGrade());
+                }
+                grade= new Object[bantu.size()][5];
+
+                String headerGrade[] = {"Subject", "From", "Score", "%", "Delete"};
+
+                for (int i = 0; i < bantu.size(); i++){
+                    String potong[] = (bantu.get(i).toString()).split("-");
+                    grade[x][0] = potong[0];
+                    grade[x][1] = potong[1];
+                    grade[x][2] = potong[2];
+                    grade[x][3] = potong[3];
+                    grade[x][4] = "delete";
+                    x++;
+                }
+                table_grade.setModel(new DefaultTableModel(grade, headerGrade));
+            }
+        }
+        Add_Grade_Score.setText("");
+        Add_Grade_Persen.setText("");
+        subjectGrade.removeAllElements();
+        
+        ArrayList<String> matkul = new ArrayList<>();
+        for (int i = 0; i < db.get(id).semester.get(indexSemester).cls.size(); i++){
+            String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
+            matkul.add(temp[0]);
+        }
+        ArrayList<String> data = new ArrayList<>();
+        for (int j = 0; j < db.get(id).semester.get(indexSemester).grade.size(); j++){
+            String temp[] = db.get(id).semester.get(indexSemester).grade.get(j).getGrade().split("-");
+            data.add(temp[0]);
+        }
+        totalgrade = new Object[matkul.size()][2];
+        String headerTotalGrade[] = {"Subject", "GPA"};
+        int y = 0;
+        for (int i = 0; i < matkul.size(); i++){
+            totalgrade[y][0] = matkul.get(i);
+            double score = 0;
+            int ctr = 0;
+            for (int j = 0; j < data.size(); j++){
+                //Collections.frequency(data,matkul.get(i))
+                if (data.get(j).equals(matkul.get(i))){
+                    String tampung[] = db.get(id).semester.get(indexSemester).grade.get(j).getGrade().split("-");
+                    String potongScore[] = tampung[2].split("/");
+                    String potongPersen[] = tampung[3].split("%");
+                    double nilai = (double) Integer.parseInt(potongScore[0]);
+                    double batas  = (double) Integer.parseInt(potongScore[1]);
+                    int persen = Integer.parseInt(potongPersen[0]);
+                    score += nilai * 100 / persen;
+                    ctr++;
+                }
+            }
+            score = (score / ctr) / 20 - 1;
+            totalgrade[y][1] = score;
+            y++;
+        }
+        table_total_grade.setModel(new DefaultTableModel(totalgrade, headerTotalGrade));
+    }//GEN-LAST:event_Tab_Grade_Add_GradeActionPerformed
+
+    private void table_gradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_gradeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_table_gradeMouseClicked
 
     
     /**
@@ -1712,6 +1991,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Add_Class_Label_Subject;
     private javax.swing.JLabel Add_Class_Label_Time;
     private javax.swing.JLabel Add_Class_Label_Time1;
+    private javax.swing.JLabel Add_Class_Label_Time2;
     private javax.swing.JTextField Add_Class_Room;
     private com.github.lgooddatepicker.components.TimePicker Add_Class_Start;
     private javax.swing.JTextField Add_Class_Subject;
@@ -1723,13 +2003,22 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Add_Exam_Label_Room;
     private javax.swing.JLabel Add_Exam_Label_Start;
     private javax.swing.JLabel Add_Exam_Label_Subject;
+    private javax.swing.JLabel Add_Exam_Label_persen;
     private javax.swing.JTextField Add_Exam_Room;
     private com.github.lgooddatepicker.components.TimePicker Add_Exam_Start;
-    private javax.swing.JTextField Add_Exam_Subject;
+    private javax.swing.JComboBox<String> Add_Exam_Subject;
+    private javax.swing.JPanel Add_Grade;
+    private javax.swing.JComboBox<String> Add_Grade_From;
+    private javax.swing.JLabel Add_Grade_Label_From;
+    private javax.swing.JLabel Add_Grade_Label_Score;
+    private javax.swing.JLabel Add_Grade_Label_Subject;
+    private javax.swing.JTextField Add_Grade_Persen;
+    private javax.swing.JTextField Add_Grade_Score;
+    private javax.swing.JComboBox<String> Add_Grade_Subject;
     private javax.swing.JLabel Add_Home_Label_Subject;
     private javax.swing.JLabel Add_Home_Label_deadline;
     private javax.swing.JLabel Add_Home_Label_description;
-    private javax.swing.JTextField Add_Home_Subject;
+    private javax.swing.JComboBox<String> Add_Home_Subject;
     private javax.swing.JTextArea Add_Home_description;
     private javax.swing.JPanel Add_Homework;
     private javax.swing.JPanel Agenda;
@@ -1789,6 +2078,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel Tab_Exam;
     private javax.swing.JButton Tab_Exam_Add_Exam;
     private javax.swing.JPanel Tab_Grade;
+    private javax.swing.JButton Tab_Grade_Add_Grade;
+    private javax.swing.JLabel Tab_Grade_Label_GPA;
+    private javax.swing.JLabel Tab_Grade_Label_Grade;
+    private javax.swing.JLabel Tab_Grade_Label_Total;
     private javax.swing.JPanel Tab_Homework;
     private javax.swing.JButton Tab_Homework_Add_Homework;
     private javax.swing.JPanel Tab_Overview;
@@ -1797,15 +2090,21 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Tab_Overview_Label_Goal;
     private javax.swing.JLabel Tab_Overview_Label_Grade;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable table_class;
+    private javax.swing.JTable table_exam;
+    private javax.swing.JTable table_grade;
+    private javax.swing.JTable table_homework;
+    private javax.swing.JTable table_total_grade;
     // End of variables declaration//GEN-END:variables
 }

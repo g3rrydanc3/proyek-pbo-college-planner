@@ -9,6 +9,7 @@ public class db_Semester implements Serializable{
     public ArrayList<db_Class> cls = new ArrayList<>();
     public ArrayList<db_Homework> homework = new ArrayList<>();
     public ArrayList<db_Exam> exam = new ArrayList<>();
+    public ArrayList<db_Grade> grade = new ArrayList<>();
 
     public db_Semester(String name) {
         this.name = name;
@@ -52,5 +53,13 @@ public class db_Semester implements Serializable{
     
     public void addExam(String s){
         exam.add(new db_Exam(s));
+    }
+    
+    public ArrayList<db_Grade> getGrade(){
+        return grade;
+    }
+    
+    public void addGrade(String s){
+        grade.add(new db_Grade(s));
     }
 }
