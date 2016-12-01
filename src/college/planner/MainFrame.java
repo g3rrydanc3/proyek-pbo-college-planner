@@ -1127,7 +1127,7 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Overview_Label_Grade.setText("Grade This Semester");
         Tab_Overview_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Overview_Label_GPA.setText("4.0");
+        Tab_Overview_Label_GPA.setText("0");
         Tab_Overview_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout Tab_OverviewLayout = new javax.swing.GroupLayout(Tab_Overview);
@@ -1356,7 +1356,7 @@ public class MainFrame extends javax.swing.JFrame {
         Tab_Grade_Label_Grade.setText("Grade This Semester");
         Tab_Grade_Label_Grade.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Tab_Grade_Label_GPA.setText("4.0");
+        Tab_Grade_Label_GPA.setText("0");
         Tab_Grade_Label_GPA.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         Tab_Grade_Label_Total.setText("Total grade each class");
@@ -1681,6 +1681,38 @@ public class MainFrame extends javax.swing.JFrame {
                 z++;
             }
             table_exam.setModel(new DefaultTableModel(exam, headerExam));
+            
+            //load grade
+            int a = 0;
+            ArrayList<String> LoadGrade = new ArrayList<>();
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).grade.size(); i++){
+                LoadGrade.add(db.get(id).semester.get(indexSemester).grade.get(i).getGrade());
+            }
+            grade= new Object[LoadGrade.size()][5];
+            String headerGrade[] = {"Subject", "From", "Score", "%", ""};
+
+            for (int i = 0; i < LoadGrade.size(); i++){
+                String potong[] = (LoadGrade.get(i).toString()).split("-");
+                grade[a][0] = potong[0];
+                grade[a][1] = potong[1];
+                grade[a][2] = potong[2];
+                grade[a][3] = potong[3];
+                grade[a][4] = "delete";
+                a++;
+            }
+            table_grade.setModel(new DefaultTableModel(grade, headerGrade));
+            
+            //load gradetotal
+            int b = 0;
+            totalgrade= new Object[db.get(id).semester.get(indexSemester).nama.size()][2];
+            String headerTotalGrade[] = {"Subject", "GPA"};
+
+            for (int i = 0; i < db.get(id).semester.get(indexSemester).nama.size(); i++){
+                totalgrade[b][0] = db.get(id).semester.get(indexSemester).nama.get(i);
+                totalgrade[b][1] = db.get(id).semester.get(indexSemester).nilai.get(i);
+                b++;
+            }
+            table_total_grade.setModel(new DefaultTableModel(totalgrade, headerTotalGrade));
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
 
@@ -1861,6 +1893,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Tab_Exam_Add_ExamActionPerformed
 
     private void Tab_Grade_Add_GradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Grade_Add_GradeActionPerformed
+        db.get(id).semester.get(indexSemester).nama.clear();
+        db.get(id).semester.get(indexSemester).nilai.clear();
         for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
             String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
             subjectGrade.addElement(temp[0]);
@@ -1874,12 +1908,11 @@ public class MainFrame extends javax.swing.JFrame {
                 int x = 0;
                 ArrayList<String> bantu = new ArrayList<>();
                 db.get(id).semester.get(indexSemester).addGrade(Add_Grade_Subject.getSelectedItem().toString()+"-"+Add_Grade_From.getSelectedItem().toString()+"-"+Add_Grade_Score.getText()+"/100"+"-"+Add_Grade_Persen.getText()+"%");
-                //save();
+                save();
                 for (int i = 0; i < db.get(id).semester.get(indexSemester).grade.size(); i++){
                     bantu.add(db.get(id).semester.get(indexSemester).grade.get(i).getGrade());
                 }
                 grade= new Object[bantu.size()][5];
-
                 String headerGrade[] = {"Subject", "From", "Score", "%", ""};
 
                 for (int i = 0; i < bantu.size(); i++){
@@ -1911,6 +1944,7 @@ public class MainFrame extends javax.swing.JFrame {
         totalgrade = new Object[matkul.size()][2];
         String headerTotalGrade[] = {"Subject", "GPA"};
         int y = 0;
+        int gpa = 0;
         for (int i = 0; i < matkul.size(); i++){
             totalgrade[y][0] = matkul.get(i);
             double score = 0;
@@ -1929,10 +1963,25 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
             score = (score / ctr) / 20 - 1;
+            if (score <= 0) {
+                score = 0;
+            }
+            else if (score >=4) {
+                score = 4;
+            }
             totalgrade[y][1] = score;
+            db.get(id).semester.get(indexSemester).addNama(matkul.get(i).toString());
+            db.get(id).semester.get(indexSemester).addNilai((Double)score);
+            save();
+            gpa+=score;
             y++;
+            
         }
+        gpa = gpa / y;
+        Tab_Grade_Label_GPA.setText(String.valueOf(gpa));
+        Tab_Overview_Label_GPA.setText(String.valueOf(gpa));
         table_total_grade.setModel(new DefaultTableModel(totalgrade, headerTotalGrade));
+        db.get(id).semester.get(indexSemester).setGpa(gpa);
     }//GEN-LAST:event_Tab_Grade_Add_GradeActionPerformed
 
     private void table_gradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_gradeMouseClicked
