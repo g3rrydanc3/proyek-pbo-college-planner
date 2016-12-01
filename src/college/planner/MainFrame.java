@@ -34,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
     String header[] = {"Subject", "Room", "Day", "Time"};
     String headerHomework[] = {"Subject", "Description", "Deadline"};
     String headerExam[] = {"Subject", "Room", "Day", "Time"};
-    String headerGrade[] = {"Subject","From", "Score", "%", "Delete"};
+    String headerGrade[] = {"Subject","From", "Score", "%", ""};
     String headerTotalGrade[] = {"Subject", "GPA"};
     ArrayList<String> addclass = new ArrayList<>();
     int indexSemester;
@@ -1861,7 +1861,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Tab_Exam_Add_ExamActionPerformed
 
     private void Tab_Grade_Add_GradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab_Grade_Add_GradeActionPerformed
-        
         for (int i = 0; i < db.get(id).semester.get(indexSemester).getCls().size(); i++){
             String temp[] = db.get(id).semester.get(indexSemester).cls.get(i).getName().split("-");
             subjectGrade.addElement(temp[0]);
@@ -1881,7 +1880,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
                 grade= new Object[bantu.size()][5];
 
-                String headerGrade[] = {"Subject", "From", "Score", "%", "Delete"};
+                String headerGrade[] = {"Subject", "From", "Score", "%", ""};
 
                 for (int i = 0; i < bantu.size(); i++){
                     String potong[] = (bantu.get(i).toString()).split("-");
@@ -1937,7 +1936,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_Tab_Grade_Add_GradeActionPerformed
 
     private void table_gradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_gradeMouseClicked
-        // TODO add your handling code here:
+        int row = table_grade.getSelectedRow();
+        int column = table_grade.getSelectedColumn();
+        if (column == 4){
+            ((DefaultTableModel)table_grade.getModel()).removeRow(row);
+        }
     }//GEN-LAST:event_table_gradeMouseClicked
 
     
