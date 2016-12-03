@@ -1,6 +1,5 @@
 package college.planner;
 
-import com.toedter.calendar.JCalendar;
 import java.awt.Image;
 import java.io.*;
 import java.util.ArrayList;
@@ -12,16 +11,16 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Font;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.DateFormat;
 import java.util.Collections;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends javax.swing.JFrame {
+    String header[] = {"Subject", "Room", "Day", "Time"};
+    String headerHomework[] = {"Subject", "Description", "Deadline"};
+    String headerExam[] = {"Subject", "Room", "Day", "Time"};
+    String headerGrade[] = {"Subject","From", "Score", "%", ""};
+    String headerTotalGrade[] = {"Subject", "GPA"};
     DefaultListModel<String> smtr = new DefaultListModel<>();
     DefaultComboBoxModel<String> subjectHomework = new DefaultComboBoxModel<String>();
     DefaultComboBoxModel<String> subjectExam = new DefaultComboBoxModel<String>();
@@ -31,31 +30,33 @@ public class MainFrame extends javax.swing.JFrame {
     Object exam[][] = null;
     Object grade[][] = null;
     Object totalgrade[][] = null;
-    String header[] = {"Subject", "Room", "Day", "Time"};
-    String headerHomework[] = {"Subject", "Description", "Deadline"};
-    String headerExam[] = {"Subject", "Room", "Day", "Time"};
-    String headerGrade[] = {"Subject","From", "Score", "%", ""};
-    String headerTotalGrade[] = {"Subject", "GPA"};
     ArrayList<String> addclass = new ArrayList<>();
+    ArrayList<db_User> db = new ArrayList<>();
     int indexSemester;
+    int id = -1;
     
-    public MainFrame() throws IOException {
+    public MainFrame() {
         initComponents();
+        init();
+    }
+    
+    public void init(){
         Home_Semester_List.setModel(smtr);
         this.setLocationRelativeTo(null);
         load();
         changePanel("Login");
-        
-        setIconImage(ImageIO.read(new File("src/img/logo.png")));
-        
-        Image iimgLogo = ImageIO.read(new File("src/img/logo.png")).getScaledInstance(Login_Icon.getWidth(), Login_Icon.getHeight(), Image.SCALE_SMOOTH);
-        Image iimgBack = ImageIO.read(new File("src/img/back.png")).getScaledInstance(Register_Back.getWidth(), Register_Back.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon imgBack = new ImageIcon(iimgBack);
-        ImageIcon imgLogo = new ImageIcon(iimgLogo);
-        
-        Register_Back.setIcon(imgBack);
-        Login_Icon.setIcon(imgLogo);
-        Home_Logo.setIcon(imgLogo);
+        try {
+            setIconImage(ImageIO.read(new File("src/img/logo.png")));
+            Image iimgLogo = ImageIO.read(new File("src/img/logo.png")).getScaledInstance(Login_Icon.getWidth(), Login_Icon.getHeight(), Image.SCALE_SMOOTH);
+            Image iimgBack = ImageIO.read(new File("src/img/back.png")).getScaledInstance(Register_Back.getWidth(), Register_Back.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon imgBack = new ImageIcon(iimgBack);
+            ImageIcon imgLogo = new ImageIcon(iimgLogo);
+            Register_Back.setIcon(imgBack);
+            Login_Icon.setIcon(imgLogo);
+            Home_Logo.setIcon(imgLogo);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         
         table_class.setModel(new DefaultTableModel(data, header));
         table_homework.setModel(new DefaultTableModel(homework, header));
@@ -64,9 +65,8 @@ public class MainFrame extends javax.swing.JFrame {
         table_total_grade.setModel(new DefaultTableModel(totalgrade,headerTotalGrade));
         indexSemester=-1;
         
-        
         //agenda
-        jCalendar1.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() 
+        /*jCalendar1.getDayChooser().addPropertyChangeListener("day", new PropertyChangeListener() 
          {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
@@ -77,14 +77,13 @@ public class MainFrame extends javax.swing.JFrame {
                         tahun);
 
             }
-        });
+        });*/
         
         Add_Home_Subject.setModel(subjectHomework);
         Add_Exam_Subject.setModel(subjectExam);
         Add_Grade_Subject.setModel(subjectGrade);
     }
-    ArrayList<db_User> db = new ArrayList<>();
-    int id = -1;
+    
     /**
      *
      * @param panel
@@ -150,10 +149,6 @@ public class MainFrame extends javax.swing.JFrame {
        }
     }
     
-    public void refreshHome(){
-        
-    }
-
     /**
      * This method is called from within the contampungStructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -251,6 +246,7 @@ public class MainFrame extends javax.swing.JFrame {
         jCalendar1 = new com.toedter.calendar.JCalendar();
         Setting = new javax.swing.JPanel();
         Setting_Label = new javax.swing.JLabel();
+        Setting_Logout = new javax.swing.JButton();
         Semester = new javax.swing.JPanel();
         Semester_Label = new javax.swing.JLabel();
         Home_Semester_ScrollPane = new javax.swing.JScrollPane();
@@ -309,8 +305,8 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Class_Day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }));
         Add_Class_Day.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
-        Add_Class_Label_Time2.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         Add_Class_Label_Time2.setText("Credit");
+        Add_Class_Label_Time2.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
         jSpinner1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
 
@@ -1018,21 +1014,41 @@ public class MainFrame extends javax.swing.JFrame {
         Setting_Label.setText("Setting");
         Setting_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
 
+        Setting_Logout.setBackground(new java.awt.Color(1, 148, 72));
+        Setting_Logout.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Setting_Logout.setForeground(new java.awt.Color(255, 255, 255));
+        Setting_Logout.setText("Logout");
+        Setting_Logout.setBorder(null);
+        Setting_Logout.setBorderPainted(false);
+        Setting_Logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Setting_Logout.setFocusPainted(false);
+        Setting_Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Setting_LogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SettingLayout = new javax.swing.GroupLayout(Setting);
         Setting.setLayout(SettingLayout);
         SettingLayout.setHorizontalGroup(
             SettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Setting_Label)
-                .addContainerGap(464, Short.MAX_VALUE))
+                .addGroup(SettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SettingLayout.createSequentialGroup()
+                        .addComponent(Setting_Label)
+                        .addGap(0, 454, Short.MAX_VALUE))
+                    .addComponent(Setting_Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE))
+                .addContainerGap())
         );
         SettingLayout.setVerticalGroup(
             SettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Setting_Label)
-                .addContainerGap(549, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Setting_Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(508, Short.MAX_VALUE))
         );
 
         Home_Container.add(Setting, "card6");
@@ -1470,6 +1486,9 @@ public class MainFrame extends javax.swing.JFrame {
         else if (Login_Password.getPassword().length < 8) {
             JOptionPane.showMessageDialog(rootPane, "Password minimal 8 karakter", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        else if(Login_Username.getText().length() < 3 ){
+            JOptionPane.showMessageDialog(rootPane, "Usernam minimal 3 karakter", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         else{
             load();
             int idTemp = -1;
@@ -1489,10 +1508,10 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                     Collections.sort(tampung);
                     for (int i = 0; i < tampung.size(); i++){
-                        smtr.addElement(tampung.get(i).toString());
+                        smtr.addElement(tampung.get(i));
                     }
-                    
-                    //addclass.clear();
+                    Login_Username.setText("");
+                    Login_Password.setText("");
                     changePanel("Semester");
                 }
                 else{
@@ -1517,6 +1536,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
         else if (Register_Password1.getPassword().length < 8) {
             JOptionPane.showMessageDialog(rootPane, "Password minimal 8 karakter", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(Register_Username.getText().length() < 3 ){
+            JOptionPane.showMessageDialog(rootPane, "Usernam minimal 3 karakter", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else if (!Arrays.equals(Register_Password1.getPassword(), Register_Password2.getPassword())) {
             JOptionPane.showMessageDialog(rootPane, "Password tidak sama", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1992,6 +2014,28 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_table_gradeMouseClicked
 
+    private void Setting_LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Setting_LogoutActionPerformed
+        table_class.setModel(new DefaultTableModel());
+        smtr = new DefaultListModel<>();
+        subjectHomework = new DefaultComboBoxModel<String>();
+        subjectExam = new DefaultComboBoxModel<String>();
+        subjectGrade = new DefaultComboBoxModel<String>();
+        data=null;
+        homework= null;
+        exam= null;
+        grade= null;
+        totalgrade= null;
+        addclass = new ArrayList<>();
+        db = new ArrayList<>();
+        int indexSemester;
+        int id = -1;
+        Home_Semester.setBackground(new Color(0, 92, 45));
+        Home_Agenda.setBackground(new Color(1, 148, 72));
+        Home_Setting.setBackground(new Color(1, 148, 72));
+        init();
+        changePanel("Login");
+    }//GEN-LAST:event_Setting_LogoutActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -2022,12 +2066,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                try {
                     new MainFrame().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         });
         
@@ -2125,6 +2166,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Semester_Label;
     private javax.swing.JPanel Setting;
     private javax.swing.JLabel Setting_Label;
+    private javax.swing.JButton Setting_Logout;
     private javax.swing.JPanel Tab_Class;
     private javax.swing.JButton Tab_Class_Add_Class;
     private javax.swing.JPanel Tab_Exam;
