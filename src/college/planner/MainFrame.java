@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.util.Calendar;
 import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -34,10 +35,46 @@ public class MainFrame extends javax.swing.JFrame {
     ArrayList<db_User> db = new ArrayList<>();
     int indexSemester;
     int id = -1;
+    int month = 11;
+    int year = 2016;
+    DefaultTableModel mod1;
     
     public MainFrame() {
         initComponents();
         init();
+        
+        
+        mod1 = new DefaultTableModel();
+        jTable1.setModel(mod1);
+        mod1.addColumn("Sun");
+        mod1.addColumn("Mon");
+        mod1.addColumn("Tue");
+        mod1.addColumn("Wed");
+        mod1.addColumn("Thu");
+        mod1.addColumn("Fri");
+        mod1.addColumn("Sat");
+        mod1.setRowCount(6);
+        
+        mod1.getDataVector().removeAllElements();
+        mod1.setRowCount(6);
+
+        jTable1.removeAll();
+        jTable1.setModel(mod1);
+        int day = 1;
+        Calendar cd = Calendar.getInstance();
+        cd.set(year,month,day);
+        int start = cd.get(cd.DAY_OF_WEEK);
+        int maxDay = cd.getActualMaximum(cd.DAY_OF_MONTH);
+        start--;
+        int j = 0;
+        for (int i = 1; i <=maxDay; i++){
+            mod1.setValueAt(i, j, start);
+            start++;
+            if (start == 7){
+                start = 0;
+                j++;
+            }               
+        }
     }
     
     public void init(){
@@ -178,8 +215,8 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Home_Label_deadline = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         Add_Home_description = new javax.swing.JTextArea();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
         Add_Home_Subject = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         Add_Exam = new javax.swing.JPanel();
         Add_Exam_Label_Subject = new javax.swing.JLabel();
         Add_Exam_Label_Room = new javax.swing.JLabel();
@@ -189,8 +226,8 @@ public class MainFrame extends javax.swing.JFrame {
         Add_Exam_Label_End = new javax.swing.JLabel();
         Add_Exam_End = new com.github.lgooddatepicker.components.TimePicker();
         Add_Exam_Label_Date = new javax.swing.JLabel();
-        Add_Exam_Date = new com.toedter.calendar.JDateChooser();
         Add_Exam_Subject = new javax.swing.JComboBox<>();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         Add_Grade = new javax.swing.JPanel();
         Add_Grade_Label_Subject = new javax.swing.JLabel();
         Add_Grade_Subject = new javax.swing.JComboBox<>();
@@ -242,8 +279,14 @@ public class MainFrame extends javax.swing.JFrame {
         Home_Setting = new javax.swing.JButton();
         Home_Container = new javax.swing.JPanel();
         Agenda = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtYear = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         Agenda_Label = new javax.swing.JLabel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         Setting = new javax.swing.JPanel();
         Setting_Label = new javax.swing.JLabel();
         Setting_Logout = new javax.swing.JButton();
@@ -390,8 +433,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Add_Home_Subject, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Add_Home_Subject, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Add_HomeworkLayout.setVerticalGroup(
@@ -406,9 +449,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Add_Home_Label_description)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(Add_HomeworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Add_Home_Label_deadline)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -452,8 +495,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Add_Exam_Room, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Add_Exam_Date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(Add_Exam_Subject, javax.swing.GroupLayout.Alignment.LEADING, 0, 132, Short.MAX_VALUE)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         Add_ExamLayout.setVerticalGroup(
@@ -468,9 +511,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Add_Exam_Label_Room)
                     .addComponent(Add_Exam_Room, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Add_Exam_Label_Date)
-                    .addComponent(Add_Exam_Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Add_ExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Add_Exam_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -952,13 +995,13 @@ public class MainFrame extends javax.swing.JFrame {
         Home_MenuLayout.setHorizontalGroup(
             Home_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Home_MenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(Home_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(Home_Setting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Home_Agenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Home_Logo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Home_Semester, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addGap(610, 610, 610))
+                .addGap(598, 598, 598))
         );
         Home_MenuLayout.setVerticalGroup(
             Home_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -971,7 +1014,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(Home_Agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Home_Setting, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         Home_Semester.getAccessibleContext().setAccessibleName("Home Semester");
@@ -981,8 +1024,45 @@ public class MainFrame extends javax.swing.JFrame {
 
         Agenda.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setText("Year");
+
+        txtYear.setText("2016");
+        txtYear.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtYearKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("December");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTable1.setCellSelectionEnabled(true);
+        jTable1.setRowHeight(20);
+        jScrollPane8.setViewportView(jTable1);
+
         Agenda_Label.setText("Agenda");
         Agenda_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
+
+        jButton1.setText(">>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("<<");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout AgendaLayout = new javax.swing.GroupLayout(Agenda);
         Agenda.setLayout(AgendaLayout);
@@ -991,20 +1071,38 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(AgendaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                    .addComponent(Agenda_Label)
                     .addGroup(AgendaLayout.createSequentialGroup()
-                        .addComponent(Agenda_Label)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AgendaLayout.createSequentialGroup()
+                            .addComponent(jButton2)
+                            .addGap(57, 57, 57)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
         AgendaLayout.setVerticalGroup(
             AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AgendaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Agenda_Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(AgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         Home_Container.add(Agenda, "card4");
@@ -1014,14 +1112,14 @@ public class MainFrame extends javax.swing.JFrame {
         Setting_Label.setText("Setting");
         Setting_Label.setFont(new java.awt.Font("Tw Cen MT", 0, 36)); // NOI18N
 
-        Setting_Logout.setBackground(new java.awt.Color(1, 148, 72));
-        Setting_Logout.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        Setting_Logout.setForeground(new java.awt.Color(255, 255, 255));
         Setting_Logout.setText("Logout");
+        Setting_Logout.setBackground(new java.awt.Color(1, 148, 72));
         Setting_Logout.setBorder(null);
         Setting_Logout.setBorderPainted(false);
         Setting_Logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Setting_Logout.setFocusPainted(false);
+        Setting_Logout.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        Setting_Logout.setForeground(new java.awt.Color(255, 255, 255));
         Setting_Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Setting_LogoutActionPerformed(evt);
@@ -1048,7 +1146,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(Setting_Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Setting_Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(508, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
 
         Home_Container.add(Setting, "card6");
@@ -1103,7 +1201,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(Home_Semester_ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Home_Semester1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         Home_Container.add(Semester, "card2");
@@ -1178,7 +1276,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(Tab_OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tab_Overview_Label_Grade)
                     .addComponent(Tab_Overview_Label_GPA))
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Overview", Tab_Overview);
@@ -1231,7 +1329,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Tab_Class_Add_Class, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Class", Tab_Class);
@@ -1283,7 +1381,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Tab_Homework_Add_Homework, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Homework", Tab_Homework);
@@ -1335,7 +1433,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Tab_Exam_Add_Exam, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Exam", Tab_Exam);
@@ -1435,12 +1533,12 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tab_Grade_Label_Grade)
                     .addComponent(Tab_Grade_Label_GPA))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(Tab_GradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(Tab_GradeLayout.createSequentialGroup()
                     .addGap(33, 33, 33)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(332, Short.MAX_VALUE)))
+                    .addContainerGap(250, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Grade", Tab_Grade);
@@ -1453,7 +1551,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         OverviewLayout.setVerticalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
         );
 
         Home_Container.add(Overview, "card5");
@@ -1471,7 +1569,7 @@ public class MainFrame extends javax.swing.JFrame {
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Home_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Home_Container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Home_Container, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
         );
 
         getContentPane().add(Home, "card4");
@@ -1737,7 +1835,7 @@ public class MainFrame extends javax.swing.JFrame {
             table_total_grade.setModel(new DefaultTableModel(totalgrade, headerTotalGrade));
         }
     }//GEN-LAST:event_Home_Semester_ListMouseClicked
-
+    
     private void Home_AgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Home_AgendaActionPerformed
         changePanel("Agenda");
         Home_Semester.setBackground(new Color(1, 148, 72));
@@ -1823,13 +1921,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
         int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Homework, "Add Homework", JOptionPane.OK_CANCEL_OPTION);
         if (dialogResult == 0) {
-            if (Add_Home_description.getText().trim().isEmpty() || datePicker1.getDate().toString().trim().isEmpty()) {
+            if (Add_Home_description.getText().trim().isEmpty() || jDateChooser1.getDate().toString().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 int x = 0;
                 ArrayList<String> bantu = new ArrayList<>();
-                db.get(id).semester.get(indexSemester).addHomework(Add_Home_Subject.getSelectedItem().toString()+"-"+Add_Home_description.getText()+"-"+datePicker1.getDate());
+                db.get(id).semester.get(indexSemester).addHomework(Add_Home_Subject.getSelectedItem().toString()+"-"+Add_Home_description.getText()+"-"+jDateChooser1.getDate());
                 save();
                 for (int i = 0; i < db.get(id).semester.get(indexSemester).homework.size(); i++){
                     bantu.add(db.get(id).semester.get(indexSemester).homework.get(i).getHomework());
@@ -1849,7 +1947,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         Add_Home_description.setText("");
-        datePicker1.setDate(null);
+        jDateChooser2.setDate(null);
         subjectHomework.removeAllElements();
     }//GEN-LAST:event_Tab_Homework_Add_HomeworkActionPerformed
 
@@ -1881,13 +1979,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
         int dialogResult = JOptionPane.showConfirmDialog(rootPane, Add_Exam, "Add Exam", JOptionPane.OK_CANCEL_OPTION);
         if (dialogResult == 0) {
-            if (Add_Exam_Room.getText().trim().isEmpty() || Add_Exam_Date.getDate().toString().trim().isEmpty() || Add_Exam_Start== null || Add_Exam_End==null) {
+            if (Add_Exam_Room.getText().trim().isEmpty() || jDateChooser2.getDate().toString().trim().isEmpty() || Add_Exam_Start== null || Add_Exam_End==null) {
                 JOptionPane.showMessageDialog(rootPane, "Semua field harus di isi", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 int x = 0;
                 ArrayList<String> bantu = new ArrayList<>();
-                db.get(id).semester.get(indexSemester).addExam(Add_Exam_Subject.getSelectedItem().toString()+"-"+Add_Exam_Room.getText()+"-"+Add_Exam_Date.getDate()+"-"+Add_Exam_Start.getTime().toString()+" to "+Add_Exam_End.getTime().toString());
+                db.get(id).semester.get(indexSemester).addExam(Add_Exam_Subject.getSelectedItem().toString()+"-"+Add_Exam_Room.getText()+"-"+jDateChooser1.getDate()+"-"+Add_Exam_Start.getTime().toString()+" to "+Add_Exam_End.getTime().toString());
                 save();
                 for (int i = 0; i < db.get(id).semester.get(indexSemester).exam.size(); i++){
                     bantu.add(db.get(id).semester.get(indexSemester).exam.get(i).getExam());
@@ -1908,7 +2006,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         Add_Exam_Room.setText("");
-        Add_Exam_Date.setDate(null);
+        jDateChooser2.setDate(null);
         Add_Exam_Start.setTime(null);
         Add_Exam_End.setTime(null);
         subjectExam.removeAllElements();
@@ -2035,6 +2133,159 @@ public class MainFrame extends javax.swing.JFrame {
         init();
         changePanel("Login");
     }//GEN-LAST:event_Setting_LogoutActionPerformed
+    
+    private void txtYearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYearKeyTyped
+        if(evt.getKeyChar()==10){
+            mod1.getDataVector().removeAllElements();
+            mod1.setRowCount(6);
+            
+            jTable1.removeAll();
+            jTable1.setModel(mod1);
+            year = Integer.valueOf(txtYear.getText());
+            System.out.println(year);
+            int day = 1;
+            Calendar cd = Calendar.getInstance();
+            cd.set(year,month,day);
+            int start = cd.get(cd.DAY_OF_WEEK);
+            int maxDay = cd.getActualMaximum(cd.DAY_OF_MONTH);
+            start--;
+            int j = 0;
+            for (int i = 1; i <=maxDay; i++){
+                mod1.setValueAt(i, j, start);
+                start++;
+                if (start == 7){
+                    start = 0;
+                    j++;
+                }               
+            }
+        }
+    }//GEN-LAST:event_txtYearKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (month == 11){
+            month = 0;
+        }else{
+            month++;
+        }
+        if (month == 0){
+            jLabel2.setText("January");
+        }
+        if (month == 1){
+            jLabel2.setText("February");
+        }
+        if (month == 2){
+            jLabel2.setText("March");
+        }
+        if (month == 3){
+            jLabel2.setText("April");
+        }
+        if (month == 4){
+            jLabel2.setText("May");
+        }
+        if (month == 5){
+            jLabel2.setText("June");
+        }if (month == 6){
+            jLabel2.setText("July");
+        }
+        if (month == 7){
+            jLabel2.setText("August");
+        }
+        if (month == 8){
+            jLabel2.setText("September");
+        }
+        if (month == 9){
+            jLabel2.setText("October");
+        }
+        if (month == 10){
+            jLabel2.setText("November");
+        }
+        if (month == 11){
+            jLabel2.setText("December");
+        }
+        mod1.getDataVector().removeAllElements();
+        mod1.setRowCount(6);
+
+        jTable1.removeAll();
+        jTable1.setModel(mod1);
+        int day = 1;
+        Calendar cd = Calendar.getInstance();
+        cd.set(year,month,day);
+        int start = cd.get(cd.DAY_OF_WEEK);
+        int maxDay = cd.getActualMaximum(cd.DAY_OF_MONTH);
+        start--;
+        int j = 0;
+        for (int i = 1; i <=maxDay; i++){
+            mod1.setValueAt(i, j, start);
+            start++;
+            if (start == 7){
+                start = 0;
+                j++;
+            }               
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (month == 0){
+            month = 11;
+        }else{
+            month--;
+        }
+        if (month == 0){
+            jLabel2.setText("January");
+        }
+        if (month == 1){
+            jLabel2.setText("February");
+        }
+        if (month == 2){
+            jLabel2.setText("March");
+        }
+        if (month == 3){
+            jLabel2.setText("April");
+        }
+        if (month == 4){
+            jLabel2.setText("May");
+        }
+        if (month == 5){
+            jLabel2.setText("June");
+        }if (month == 6){
+            jLabel2.setText("July");
+        }
+        if (month == 7){
+            jLabel2.setText("August");
+        }
+        if (month == 8){
+            jLabel2.setText("September");
+        }
+        if (month == 9){
+            jLabel2.setText("October");
+        }
+        if (month == 10){
+            jLabel2.setText("November");
+        }
+        if (month == 11){
+            jLabel2.setText("December");
+        }
+        mod1.getDataVector().removeAllElements();
+        mod1.setRowCount(6);
+
+        jTable1.removeAll();
+        jTable1.setModel(mod1);
+        int day = 1;
+        Calendar cd = Calendar.getInstance();
+        cd.set(year,month,day);
+        int start = cd.get(cd.DAY_OF_WEEK);
+        int maxDay = cd.getActualMaximum(cd.DAY_OF_MONTH);
+        start--;
+        int j = 0;
+        for (int i = 1; i <=maxDay; i++){
+            mod1.setValueAt(i, j, start);
+            start++;
+            if (start == 7){
+                start = 0;
+                j++;
+            }               
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     /**
@@ -2089,7 +2340,6 @@ public class MainFrame extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.TimePicker Add_Class_Start;
     private javax.swing.JTextField Add_Class_Subject;
     private javax.swing.JPanel Add_Exam;
-    private com.toedter.calendar.JDateChooser Add_Exam_Date;
     private com.github.lgooddatepicker.components.TimePicker Add_Exam_End;
     private javax.swing.JLabel Add_Exam_Label_Date;
     private javax.swing.JLabel Add_Exam_Label_End;
@@ -2183,8 +2433,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel Tab_Overview_Label_GPA;
     private javax.swing.JLabel Tab_Overview_Label_Goal;
     private javax.swing.JLabel Tab_Overview_Label_Grade;
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2192,13 +2446,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable table_class;
     private javax.swing.JTable table_exam;
     private javax.swing.JTable table_grade;
     private javax.swing.JTable table_homework;
     private javax.swing.JTable table_total_grade;
+    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }
